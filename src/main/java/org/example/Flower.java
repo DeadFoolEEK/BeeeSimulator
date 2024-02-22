@@ -8,15 +8,17 @@ public class Flower {
     public int y;
     public static int flowerSize = 20;
     public int nectarAmount = 10;
+    public boolean isOccupiedByBee;
     Random random;
     Flower(){
+        isOccupiedByBee = false;
         random = new Random();
         flowerSpawnRandomizer();
     }
     public void flowerSpawnRandomizer(){
         x = random.nextInt(Panel.PANEL_WIDTH);
         y = random.nextInt(Panel.PANEL_HEIGHT);
-        while(x >= 300 && x <= 500 && y >= 300 && y <= 500){
+        while(x > 300 && x < 500 && y > 300 && y < 500){
             x = random.nextInt(Panel.PANEL_WIDTH);
             y = random.nextInt(Panel.PANEL_HEIGHT);
         }

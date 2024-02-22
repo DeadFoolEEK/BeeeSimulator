@@ -6,54 +6,87 @@ import java.util.Random;
 public class Bee {
     public int x;
     public int y;
+    public int xBeeSpawnLocation;
+    public int yBeeSpawnLocation;
     public static final int beeSize = 15;
-    public int xVelocity;
-    public int yVelocity;
+    public int xVelocity = 1;
+    public int yVelocity = 1;
     public int storedNectar;
     public static final int nectarGrabAmount = 10;
     public final static int maximumNectarStored = 10;
+    Flower selectedFlower;
+    boolean hasSelectedFlower;
+    boolean readyToDepositNectar;
 
     Random random;
     Bee(){
         random = new Random();
         beeSpawnRandomizer();
-        beeVelocityRandomizer();
+        hasSelectedFlower = false;
+        readyToDepositNectar = false;
     }
     public void beeSpawnRandomizer(){
         x = random.nextInt(Hive.x, Hive.x + Hive.size);
         y = random.nextInt(Hive.y, Hive.y + Hive.size);
+        xBeeSpawnLocation = x;
+        yBeeSpawnLocation = y;
     }
     public void paintBee(Graphics g){
         g.setColor(Color.black);
         g.fillOval(x,y,beeSize,beeSize);
     }
-    public void beeVelocityRandomizer(){
-        while(xVelocity == 0 && yVelocity == 0){
-            xVelocity = random.nextInt(-2,2);
-            yVelocity = random.nextInt(-2,2);
-        }
+    public void getFlower(Flower flower){
+        flower.isOccupiedByBee = true;
+        hasSelectedFlower = true;
+        selectedFlower = flower;
     }
     public void beeMove(){
-        if(x > Panel.PANEL_WIDTH - beeSize || x < 0){
-            xVelocity *= -1;
+        //move to selected flower
+        if(hasSelectedFlower && !readyToDepositNectar){
+            if(selectedFlower.x > x){
+                x += xVelocity;
+            }
+            else if(selectedFlower.x < x){
+                x -= xVelocity;
+            }
+            if(selectedFlower.y > y){
+                y += yVelocity;
+            }
+            else if(selectedFlower.y < y){
+                y -= yVelocity;
+            }
         }
-        else if(y > Panel.PANEL_HEIGHT - beeSize || y < 0){
-            yVelocity *= -1;
+        //come back to hive
+        if(hasSelectedFlower && readyToDepositNectar){
+            if(xBeeSpawnLocation > x){
+                x += xVelocity;
+            }
+            else if(xBeeSpawnLocation < x){
+                x -= xVelocity;
+            }
+            if(yBeeSpawnLocation > y){
+                y += yVelocity;
+            }
+            else if(yBeeSpawnLocation < y){
+                y -= yVelocity;
+            }
         }
-        x += xVelocity;
-        y += yVelocity;
-
     }
 
     public void getNectar(Flower flower){
-        if(storedNectar + nectarGrabAmount <= maximumNectarStored && flower.nectarAmount > 0){
+        if(storedNectar + nectarGrabAmount <= maximumNectarStored && flower.nectarAmount > 0 && selectedFlower == flower){
             flower.nectarAmount -= nectarGrabAmount;
             storedNectar += nectarGrabAmount;
+            readyToDepositNectar = true;
         }
     }
 
     public void giveNectarToHive(Hive hive){
-        hive.todayStoredNectar += storedNectar;
-        storedNectar = 0;
+        if(hasSelectedFlower && readyToDepositNectar){
+            hive.todayStoredNectar += storedNectar;
+            storedNectar = 0;
+            hasSelectedFlower = false;
+            readyToDepositNectar = false;
+        }
     }
 }

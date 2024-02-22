@@ -13,13 +13,14 @@ public class Panel extends JPanel implements ActionListener {
     Hive hive;
     ArrayList<Flower> flowers;
     ArrayList<Bee> bees;
-    public int flowersAmount = 50;
+    public int flowersAmount = 60;
     public int beessAmount = 30;
     public boolean isNight;
     long time_start;
     long timeOfNight = 5000;
     long timeOfDay = 10000;
     boolean nightStared = false;
+    Flower selectedFlower;
 
     Panel(Hive hive){
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
@@ -75,6 +76,26 @@ public class Panel extends JPanel implements ActionListener {
         g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",0,300);
     }
 
+    public Flower selectFlower(){
+        for(int i = 0; i < flowersAmount ;i++){
+            if(flowers.get(i).nectarAmount != 0 && !flowers.get(i).isOccupiedByBee){
+                return flowers.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void beeFlowerSelector(){
+        for (Bee bee : bees) {
+            if (!bee.hasSelectedFlower) {
+                selectedFlower = selectFlower();
+                if (selectedFlower != null) {
+                    bee.getFlower(selectFlower());
+                }
+            }
+        }
+    }
+
     public void paint(Graphics g){
         super.paint(g);
         if(!isNight){
@@ -114,6 +135,7 @@ public class Panel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(!isNight){
+            beeFlowerSelector();
             for(int i = 0; i < beessAmount ;i++){
                 bees.get(i).beeMove();
             }
