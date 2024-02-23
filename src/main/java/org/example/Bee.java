@@ -17,7 +17,7 @@ public class Bee {
     Flower selectedFlower;
     boolean hasSelectedFlower;
     boolean readyToDepositNectar;
-
+    boolean isRandomized = false;
     Random random;
     Bee(){
         random = new Random();
@@ -26,8 +26,8 @@ public class Bee {
         readyToDepositNectar = false;
     }
     public void beeSpawnRandomizer(){
-        x = random.nextInt(Hive.x, Hive.x + Hive.size);
-        y = random.nextInt(Hive.y, Hive.y + Hive.size);
+        x = random.nextInt(Hive.x + 2*beeSize, Hive.x + Hive.size - 2*beeSize);
+        y = random.nextInt(Hive.y + 2*beeSize, Hive.y + Hive.size - 2*beeSize);
         xBeeSpawnLocation = x;
         yBeeSpawnLocation = y;
     }
@@ -71,8 +71,31 @@ public class Bee {
                 y -= yVelocity;
             }
         }
+        //no flowers left
+        if(!hasSelectedFlower && !readyToDepositNectar){
+            if(!isRandomized){
+                beeVelocityRandomizer();
+            }
+            if(x > Panel.PANEL_WIDTH - beeSize || x < 0 ){
+                xVelocity *= -1;
+            }
+            if(y > Panel.PANEL_HEIGHT - beeSize || y < 0){
+                yVelocity *= -1;
+            }
+            x += xVelocity;
+            y += yVelocity;
+        }
     }
-
+    //used to randomize x and y velocity after no flowers are left
+    public void beeVelocityRandomizer(){
+        xVelocity = random.nextInt(-2,2);
+        yVelocity = random.nextInt(-2,2);
+        while(xVelocity == 0 && yVelocity == 0){
+            xVelocity = random.nextInt(-2,2);
+            yVelocity = random.nextInt(-2,2);
+        }
+        isRandomized = true;
+    }
     public void getNectar(Flower flower){
         if(storedNectar + nectarGrabAmount <= maximumNectarStored && flower.nectarAmount > 0 && selectedFlower == flower){
             flower.nectarAmount -= nectarGrabAmount;

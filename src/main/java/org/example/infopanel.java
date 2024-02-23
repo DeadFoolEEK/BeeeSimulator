@@ -14,8 +14,9 @@ public class infopanel extends JPanel implements ActionListener {
     JLabel amountOfNectarLabel;
     JLabel amountOfBeesLabel;
     JLabel dayInfoLabel;
+
     infopanel(Hive hive){
-        timer = new Timer(10,this);
+        timer = new Timer(100,this);
         timer.start();
         this.hive = hive;
         this.setLayout(null);
@@ -43,6 +44,10 @@ public class infopanel extends JPanel implements ActionListener {
         this.add(infoLabel);
         this.add(dayInfoLabel);
         this.add(amountOfNectarLabel);
+        this.add(amountOfBeesLabel);
+        this.add(infoLabel);
+        this.add(dayInfoLabel);
+        this.add(amountOfNectarLabel);
     }
 
 
@@ -51,5 +56,7 @@ public class infopanel extends JPanel implements ActionListener {
         amountOfNectarLabel.setText("Nektar w ulu: " + hive.storedNectar);
         amountOfBeesLabel.setText("Ilosc pszczol: " + hive.amountOfBess);
         dayInfoLabel.setText("Dzien " + Hive.day);
+
+
     }
 }

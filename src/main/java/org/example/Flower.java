@@ -10,17 +10,18 @@ public class Flower {
     public int nectarAmount = 10;
     public boolean isOccupiedByBee;
     Random random;
+    int flowerSpawnDistanceFromHive = 20;
     Flower(){
         isOccupiedByBee = false;
         random = new Random();
         flowerSpawnRandomizer();
     }
     public void flowerSpawnRandomizer(){
-        x = random.nextInt(Panel.PANEL_WIDTH);
-        y = random.nextInt(Panel.PANEL_HEIGHT);
-        while(x > 300 && x < 500 && y > 300 && y < 500){
-            x = random.nextInt(Panel.PANEL_WIDTH);
-            y = random.nextInt(Panel.PANEL_HEIGHT);
+        x = (int)Math.floor(Math.random() * (Panel.PANEL_WIDTH - flowerSize + 1));
+        y = (int)Math.floor(Math.random() * (Panel.PANEL_HEIGHT - flowerSize + 1));
+        while((x > Hive.x -  flowerSpawnDistanceFromHive && x < Hive.x + Hive.size + flowerSpawnDistanceFromHive) && (y > Hive.y - flowerSpawnDistanceFromHive && y < Hive.y + Hive.size + flowerSpawnDistanceFromHive)){
+            x = (int)Math.floor(Math.random() * (Panel.PANEL_WIDTH - flowerSize + 1));
+            y = (int)Math.floor(Math.random() * (Panel.PANEL_HEIGHT - flowerSize + 1));
         }
     }
 

@@ -13,12 +13,12 @@ public class Panel extends JPanel implements ActionListener {
     Hive hive;
     ArrayList<Flower> flowers;
     ArrayList<Bee> bees;
-    public int flowersAmount = 60;
-    public int beessAmount = 30;
-    public boolean isNight;
+    public int flowersAmount = 200;
+    public static int beessAmount = 100;
+    public static boolean isNight;
     long time_start;
     long timeOfNight = 5000;
-    long timeOfDay = 10000;
+    long timeOfDay = 20000;
     boolean nightStared = false;
     Flower selectedFlower;
 
@@ -31,7 +31,6 @@ public class Panel extends JPanel implements ActionListener {
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
-        hive.getAmountOfBees(beessAmount);
 
         beginDay();
     }
@@ -55,6 +54,7 @@ public class Panel extends JPanel implements ActionListener {
         hive.clearTodaysStoreNectar();
         spawnFlowers();
         spawnBees();
+        hive.getAmountOfBees(beessAmount);
         hive.addDay();
         time_start = System.currentTimeMillis();
     }
@@ -116,7 +116,7 @@ public class Panel extends JPanel implements ActionListener {
         for(int i = 0; i < flowersAmount;i++){
             for(int j = 0; j < beessAmount ;j++){
                 double distanceFromFlowerToBee = Math.sqrt((Math.pow(flowers.get(i).x - bees.get(j).x,2)) + Math.pow(flowers.get(i).y - bees.get(j).y,2));
-                if(distanceFromFlowerToBee < (double) Flower.flowerSize){
+                if(distanceFromFlowerToBee < (double) Flower.flowerSize - Bee.beeSize){
                     bees.get(j).getNectar(flowers.get(i));
                 }
             }
@@ -126,7 +126,7 @@ public class Panel extends JPanel implements ActionListener {
     public void bee_hive_collisionDetector(){
         for(int i = 0; i < beessAmount;i++){//punkt (400,400) to srodek ula
             double distanceFromHiveToBee = Math.sqrt((Math.pow(400 - bees.get(i).x,2)) + Math.pow(400 - bees.get(i).y,2));
-            if(distanceFromHiveToBee < (double) (Hive.size / 2)){
+            if(distanceFromHiveToBee <= (double) ((Hive.size / 2)) + Bee.beeSize){
                 bees.get(i).giveNectarToHive(hive);
             }
         }
