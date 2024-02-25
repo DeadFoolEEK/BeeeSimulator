@@ -10,6 +10,7 @@ public class Hive{
     public int todayStoredNectar = 0;
     public int amountOfBess;
     public static int day;
+    public static double money;
     Hive(){
 
     }

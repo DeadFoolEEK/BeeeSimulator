@@ -14,6 +14,7 @@ public class infopanel extends JPanel implements ActionListener {
     JLabel amountOfNectarLabel;
     JLabel amountOfBeesLabel;
     JLabel dayInfoLabel;
+    JButton marketButton;
 
     infopanel(Hive hive){
         timer = new Timer(100,this);
@@ -40,23 +41,31 @@ public class infopanel extends JPanel implements ActionListener {
         amountOfBeesLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
         amountOfBeesLabel.setBounds(10,350,300,100);
 
-        this.add(amountOfBeesLabel);
-        this.add(infoLabel);
-        this.add(dayInfoLabel);
-        this.add(amountOfNectarLabel);
-        this.add(amountOfBeesLabel);
-        this.add(infoLabel);
-        this.add(dayInfoLabel);
-        this.add(amountOfNectarLabel);
-    }
+        marketButton = new JButton();
+        marketButton.setBounds(50, 700, 200, 70);
+        marketButton.setText("MARKET");
+        marketButton.setFocusable(false);
+        marketButton.addActionListener(this);
 
+        this.add(amountOfBeesLabel);
+        this.add(infoLabel);
+        this.add(dayInfoLabel);
+        this.add(amountOfNectarLabel);
+        this.add(amountOfBeesLabel);
+        this.add(infoLabel);
+        this.add(dayInfoLabel);
+        this.add(amountOfNectarLabel);
+        this.add(marketButton);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         amountOfNectarLabel.setText("Nektar w ulu: " + hive.storedNectar);
         amountOfBeesLabel.setText("Ilosc pszczol: " + hive.amountOfBess);
         dayInfoLabel.setText("Dzien " + Hive.day);
-
-
+        if(e.getSource()==marketButton) {
+            market market = new market(hive);
+            market.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+        }
     }
 }

@@ -19,7 +19,7 @@ public class Flower {
     public void flowerSpawnRandomizer(){
         x = (int)Math.floor(Math.random() * (Panel.PANEL_WIDTH - flowerSize + 1));
         y = (int)Math.floor(Math.random() * (Panel.PANEL_HEIGHT - flowerSize + 1));
-        while((x > Hive.x -  flowerSpawnDistanceFromHive && x < Hive.x + Hive.size + flowerSpawnDistanceFromHive) && (y > Hive.y - flowerSpawnDistanceFromHive && y < Hive.y + Hive.size + flowerSpawnDistanceFromHive)){
+        while((x > Hive.x - flowerSpawnDistanceFromHive - flowerSize && x < Hive.x + Hive.size + flowerSpawnDistanceFromHive ) && (y > Hive.y - flowerSpawnDistanceFromHive - flowerSize && y < Hive.y + Hive.size + flowerSpawnDistanceFromHive)){
             x = (int)Math.floor(Math.random() * (Panel.PANEL_WIDTH - flowerSize + 1));
             y = (int)Math.floor(Math.random() * (Panel.PANEL_HEIGHT - flowerSize + 1));
         }

@@ -13,16 +13,21 @@ public class Panel extends JPanel implements ActionListener {
     Hive hive;
     ArrayList<Flower> flowers;
     ArrayList<Bee> bees;
-    public int flowersAmount = 200;
-    public static int beessAmount = 100;
+    public static int flowersAmount = 60;
+    public static int beessAmount;
     public static boolean isNight;
     long time_start;
-    long timeOfNight = 5000;
-    long timeOfDay = 20000;
+    static long timeOfNight;
+    static long timeOfDay;
     boolean nightStared = false;
     Flower selectedFlower;
 
     Panel(Hive hive){
+        if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
+            beessAmount =5;
+            timeOfDay= 5000;
+            timeOfNight = 5000;
+        }
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
 
         isNight = false;
@@ -31,6 +36,7 @@ public class Panel extends JPanel implements ActionListener {
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
+        hive.getAmountOfBees(beessAmount);
 
         beginDay();
     }
@@ -71,9 +77,9 @@ public class Panel extends JPanel implements ActionListener {
 
     public void drawNightInfo(Graphics g){
         g.setColor(Color.green);
-        g.setFont(new Font("Ink Free",Font.BOLD,50));
-        g.drawString("Dzien " + Hive.day + " dobiegl konca",150,200);
-        g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",0,300);
+        g.setFont(new Font("Ink Free",Font.BOLD,40));
+        g.drawString("Dzien " + Hive.day + " dobiegl konca",200,200);
+        g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
     }
 
     public Flower selectFlower(){
