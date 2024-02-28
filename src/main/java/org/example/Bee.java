@@ -1,7 +1,14 @@
 package org.example;
-
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 public class Bee {
     public int x;
@@ -12,13 +19,27 @@ public class Bee {
     public int xVelocity = 1;
     public int yVelocity = 1;
     public int storedNectar;
-    public static final int nectarGrabAmount = 10;
-    public final static int maximumNectarStored = 10;
+    public static final int nectarGrabAmount = 20;
+    public final static int maximumNectarStored = 20;
     Flower selectedFlower;
     boolean hasSelectedFlower;
     boolean readyToDepositNectar;
     boolean isRandomized = false;
     Random random;
+    int height = 20;
+    int width = 20;
+    private static Image rightBeeImage;
+    private static Image leftBeeImage;
+    static {
+        try {
+            rightBeeImage = ImageIO.read(new File("src/main/resources/smallbee.png"));
+            leftBeeImage = ImageIO.read(new File("src/main/resources/smallbeeRight.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            rightBeeImage = null;
+            leftBeeImage = null;
+        }
+    }
     Bee(){
         random = new Random();
         beeSpawnRandomizer();
@@ -32,8 +53,16 @@ public class Bee {
         yBeeSpawnLocation = y;
     }
     public void paintBee(Graphics g){
-        g.setColor(Color.black);
-        g.fillOval(x,y,beeSize,beeSize);
+           
+            if (x >= 400 && !readyToDepositNectar) { // pszczółka leci w prawo
+                g.drawImage(rightBeeImage, x, y, null);
+            } else if (x <= 400 && !readyToDepositNectar) { // pszczółka leci w lewo
+                g.drawImage(leftBeeImage, x, y, null);
+            } else if (x >= 400 && readyToDepositNectar) {
+                g.drawImage(leftBeeImage, x, y, null);
+            } else if (x <= 400 && readyToDepositNectar) {
+                g.drawImage(rightBeeImage, x, y, null);
+            }
     }
     public void getFlower(Flower flower){
         flower.isOccupiedByBee = true;

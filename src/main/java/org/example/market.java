@@ -92,7 +92,7 @@ public class market extends JPanel implements ActionListener {
         button3 = new JButton();
         button3.setPreferredSize(new Dimension(300, 50));
         button3.addActionListener(this);
-        button3.setText("Podaj amfetamine");
+        button3.setText("Zasiej kwiatka, aktualna cena: " + Hive.flowerPrice);
 
         
 
@@ -137,7 +137,6 @@ public class market extends JPanel implements ActionListener {
                     Hive.money += value * amountToSell; // Wartość * ilość, ilosc sobie mozna zmienic albo zrobimy to jakos randomowo
                     amountOfHoney.setText("Posiadany miod: " + hive.storedNectar);
                     moneyLabel.setText("Stan konta: " + Hive.money + "$");
-                    
                 } else {
                     JOptionPane.showMessageDialog(frame, "Nie masz tyle miodu!", "Blad", JOptionPane.ERROR_MESSAGE);
                 }
@@ -157,6 +156,7 @@ public class market extends JPanel implements ActionListener {
                             moneyLabel.setText("Stan konta: " + Hive.money + "$");
                             Panel.beessAmount += amountToBuy;
                             hive.amountOfBess += amountToBuy;
+                            
                         } else {
                             JOptionPane.showMessageDialog(frame, "Nie masz wystarczajacej ilosci pieniedzy!", "Blad", JOptionPane.ERROR_MESSAGE);
                         }
@@ -172,11 +172,15 @@ public class market extends JPanel implements ActionListener {
     
                 }
                 if(e.getSource()==button3){
-                    // Bee.xVelocity++;
-                    // Bee.yVelocity++;
                     if(Panel.isNight) {
-                    Panel.flowersAmount++;
-                    // System.out.println(Panel.flowersAmount); // rise amount of flowers - to do
+                        if(Hive.money >= Hive.flowerPrice) {
+                            Panel.flowersAmount++;
+                            Hive.flowerPrice += random.nextInt(15);
+                            Hive.money -= Hive.flowerPrice;
+                            moneyLabel.setText("Stan konta: " + Hive.money + "$");
+                            button3.setText("Zasiej kwiatka, aktualna cena: " + Hive.flowerPrice);
+                        }
+                                
                 }
                 }
                 if(Panel.isNight && !isNightChanged) {
@@ -187,13 +191,12 @@ public class market extends JPanel implements ActionListener {
                 }
             }
             public void updateBeePrice(int newPrice) {
-               
                     beePrice = newPrice;
                     beePriceLabel.setText("Cena za pszczole: " + beePrice + "$");
                     button2.setText("Zakup pszczole, aktualna cena: " + beePrice + "$");
                 
-            }
-        }
+            }}
+        
 
             
             

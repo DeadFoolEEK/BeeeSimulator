@@ -1,20 +1,32 @@
 package org.example;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class Flower {
     public int x;
     public int y;
-    public static int flowerSize = 20;
-    public int nectarAmount = 10;
+    public static int flowerSize = 30;
+    public int nectarAmount = 20;
     public boolean isOccupiedByBee;
     Random random;
     int flowerSpawnDistanceFromHive = 20;
+    BufferedImage flowerImage;
+    BufferedImage blackFlowerImage;
     Flower(){
         isOccupiedByBee = false;
         random = new Random();
         flowerSpawnRandomizer();
+        try {
+            flowerImage = ImageIO.read(new File("src/main/resources/flower.png")); // Ścieżka do pliku z obrazkiem kwiatka
+            blackFlowerImage = ImageIO.read(new File("src/main/resources/blackflower.png")); // Ścieżka do pliku z czarnym kwiatkiem
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void flowerSpawnRandomizer(){
         x = (int)Math.floor(Math.random() * (Panel.PANEL_WIDTH - flowerSize + 1));
@@ -26,13 +38,10 @@ public class Flower {
     }
 
     public void paintFlower(Graphics g){
-        if(nectarAmount == 10){
-            g.setColor(Color.red);
-            g.fillRect(x,y,flowerSize,flowerSize);
-        }
-        else if(nectarAmount == 0){
-            g.setColor(Color.black);
-            g.fillRect(x,y,flowerSize,flowerSize);
+        if (nectarAmount == 20) {
+            g.drawImage(flowerImage, x, y, flowerSize, flowerSize, null);
+        } else if (nectarAmount == 0) {
+            g.drawImage(blackFlowerImage, x, y, flowerSize, flowerSize, null);
         }
     }
 

@@ -16,7 +16,7 @@ public class StartMenu extends JFrame implements ActionListener {
 
     StartMenu() {
 
-        ImageIcon icon = new ImageIcon("src/main/resources/bee.png");
+        ImageIcon icon = new ImageIcon("src/main/resources/bee.gif");
         // Creating window of menu start
         this.setSize(850, 800);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

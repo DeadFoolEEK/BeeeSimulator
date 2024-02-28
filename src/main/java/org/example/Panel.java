@@ -1,10 +1,14 @@
 package org.example;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Panel extends JPanel implements ActionListener {
     public final static int PANEL_WIDTH = 800;
@@ -14,20 +18,25 @@ public class Panel extends JPanel implements ActionListener {
     ArrayList<Flower> flowers;
     ArrayList<Bee> bees;
     public static int flowersAmount = 60;
-    public static int beessAmount;
+    public static int beessAmount = 5;
     public static boolean isNight;
     long time_start;
-    static long timeOfNight;
-    static long timeOfDay;
+    static long timeOfNight = 5000;
+    static long timeOfDay = 7000;
     boolean nightStared = false;
     Flower selectedFlower;
+    Random random = new Random();
+    public static int babyBee = 0;
+    public static int eating;
+    public static int howManyDie;
+    public Image backgroundImage;
 
     Panel(Hive hive){
-        if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
+        /*if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
             beessAmount =5;
-            timeOfDay= 5000;
+            timeOfDay= 7000;
             timeOfNight = 5000;
-        }
+        }*/
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
 
         isNight = false;
@@ -39,6 +48,11 @@ public class Panel extends JPanel implements ActionListener {
         hive.getAmountOfBees(beessAmount);
 
         beginDay();
+        try {
+            backgroundImage = ImageIO.read(new File("src/main/resources/field2.jpg")); // Ścieżka do pliku z obrazkiem tła
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void spawnFlowers(){
@@ -54,7 +68,7 @@ public class Panel extends JPanel implements ActionListener {
     }
 
     public void beginDay(){
-        this.setBackground(Color.green);
+        // this.setBackground(Color.green);
         isNight = false;
         nightStared = false;
         hive.clearTodaysStoreNectar();
@@ -78,8 +92,21 @@ public class Panel extends JPanel implements ActionListener {
     public void drawNightInfo(Graphics g){
         g.setColor(Color.green);
         g.setFont(new Font("Ink Free",Font.BOLD,40));
+        if(beessAmount > 0) {
         g.drawString("Dzien " + Hive.day + " dobiegl konca",200,200);
         g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
+        g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 5, 400);
+        if(Hive.storedNectar > 0) {
+            g.drawString("Wszystkie pszczoly przezyly", 5, 500);
+        } else if (Hive.storedNectar <=0){
+            g.drawString("Z glodu umarlo " + howManyDie + "pszczol", 5, 500 );
+        }
+    } else if(beessAmount <= 0) {
+        g.drawString("Zadna pszczola nie przezyla, koniec symulacji",5,200);
+        timeOfNight = 100000;
+    } 
+        
+            
     }
 
     public Flower selectFlower(){
@@ -138,6 +165,44 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    public void bee_doing_sex() {
+        if(beessAmount<20) {
+            babyBee = random.nextInt(2);
+            beessAmount += babyBee;
+        } else if (beessAmount<40) {
+            babyBee = random.nextInt(7);
+            beessAmount += babyBee;
+        } else if(beessAmount<70) {
+            babyBee = random.nextInt(10);
+            beessAmount += babyBee;
+        } else {
+            babyBee = random.nextInt(13);
+            beessAmount += babyBee;
+        }
+    }
+
+    public void bee_eat_or_die() {
+        eating = beessAmount * 2;
+        Hive.storedNectar -= eating;
+        if(Hive.storedNectar < 0) {
+            System.out.println(Hive.storedNectar);
+            howManyDie = Hive.storedNectar * (-1) / 2;
+            System.out.println(howManyDie);
+            beessAmount -= howManyDie;
+            Hive.storedNectar = 0;
+        }
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (isNight) {
+            setBackground(Color.BLACK);
+            drawNightInfo(g);
+        } else if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(!isNight){
@@ -149,7 +214,12 @@ public class Panel extends JPanel implements ActionListener {
             bee_hive_collisionDetector();
             if(System.currentTimeMillis() - time_start >= timeOfDay){
                 isNight = true;
-                beginNight();
+                beginNight(); // to ma znaczenie ze jest tutaj bo inaczej jest problem z bee eat or die 
+                bee_doing_sex();
+                bee_eat_or_die();
+                
+                
+                
             }
         }
         else{

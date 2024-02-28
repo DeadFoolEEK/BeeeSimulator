@@ -77,9 +77,10 @@ public class Settings extends JFrame implements ActionListener {
         slider1.setMinorTickSpacing(1);
         slider1.setPaintLabels(true);
         slider1.setMajorTickSpacing(2);
+        slider1.setValue(5);
         slider1.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                startBee = slider1.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
+                    startBee = slider1.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
             }
         });
 
@@ -89,10 +90,12 @@ public class Settings extends JFrame implements ActionListener {
         slider2.setMinorTickSpacing(1);
         slider2.setPaintLabels(true);
         slider2.setMajorTickSpacing(5);
+        slider2.setValue(10);
         slider2.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                dayTime = slider2.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
-                dayTime = dayTime * 1000; // zmiana na milisekundy
+                    dayTime = slider2.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
+                    dayTime = dayTime * 1000; // zmiana na milisekundy
+
             }
         });
 
@@ -101,6 +104,7 @@ public class Settings extends JFrame implements ActionListener {
         slider3.setMinorTickSpacing(1);
         slider3.setPaintLabels(true);
         slider3.setMajorTickSpacing(5);
+        slider3.setValue(10);
         slider3.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 nightTime = slider3.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
@@ -126,9 +130,15 @@ public class Settings extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button1) {
-            Panel.beessAmount = startBee;
-            Panel.timeOfDay = dayTime;
-            Panel.timeOfNight = nightTime;
+            if(startBee != 0 ){
+                Panel.beessAmount = startBee;
+            }
+            if(dayTime != 0){
+                Panel.timeOfDay = dayTime;
+            }
+            if(nightTime != 0){
+                Panel.timeOfNight = nightTime;
+            }
         }
     }
 }

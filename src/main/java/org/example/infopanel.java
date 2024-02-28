@@ -15,6 +15,8 @@ public class infopanel extends JPanel implements ActionListener {
     JLabel amountOfBeesLabel;
     JLabel dayInfoLabel;
     JButton marketButton;
+    JLabel amountOfFlowersLabel;
+    Panel Panel;
 
     infopanel(Hive hive){
         timer = new Timer(100,this);
@@ -41,12 +43,17 @@ public class infopanel extends JPanel implements ActionListener {
         amountOfBeesLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
         amountOfBeesLabel.setBounds(10,350,300,100);
 
+        amountOfFlowersLabel = new JLabel();
+        amountOfFlowersLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
+        amountOfFlowersLabel.setBounds(10,400,300,100);
+
         marketButton = new JButton();
         marketButton.setBounds(50, 700, 200, 70);
         marketButton.setText("MARKET");
         marketButton.setFocusable(false);
         marketButton.addActionListener(this);
 
+        this.add(amountOfFlowersLabel);
         this.add(amountOfBeesLabel);
         this.add(infoLabel);
         this.add(dayInfoLabel);
@@ -62,6 +69,7 @@ public class infopanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         amountOfNectarLabel.setText("Nektar w ulu: " + hive.storedNectar);
         amountOfBeesLabel.setText("Ilosc pszczol: " + hive.amountOfBess);
+        amountOfFlowersLabel.setText("Ilosc kwiatow: " + Panel.flowersAmount);
         dayInfoLabel.setText("Dzien " + Hive.day);
         if(e.getSource()==marketButton) {
             market market = new market(hive);
