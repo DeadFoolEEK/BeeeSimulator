@@ -14,8 +14,10 @@ public class infopanel extends JPanel implements ActionListener {
     JLabel amountOfNectarLabel;
     JLabel amountOfBeesLabel;
     JLabel dayInfoLabel;
+    JLabel botNameInfoLabel;
     JButton marketButton;
     JLabel amountOfFlowersLabel;
+    JLabel botMoneyLabel;
     Panel Panel;
 
     infopanel(Hive hive){
@@ -53,6 +55,15 @@ public class infopanel extends JPanel implements ActionListener {
         marketButton.setFocusable(false);
         marketButton.addActionListener(this);
 
+        botNameInfoLabel = new JLabel();
+        botNameInfoLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
+        botNameInfoLabel.setBounds(10,700,300,100);
+        botNameInfoLabel.setText("Bot " + Panel.botName + " steruje");
+
+        botMoneyLabel = new JLabel();
+        botMoneyLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
+        botMoneyLabel.setBounds(10,650,300,100);
+
         this.add(amountOfFlowersLabel);
         this.add(amountOfBeesLabel);
         this.add(infoLabel);
@@ -62,7 +73,14 @@ public class infopanel extends JPanel implements ActionListener {
         this.add(infoLabel);
         this.add(dayInfoLabel);
         this.add(amountOfNectarLabel);
-        this.add(marketButton);
+
+        if(!Panel.botPlay){
+            this.add(marketButton);
+        }
+        else{
+            this.add(botMoneyLabel);
+            this.add(botNameInfoLabel);
+        }
     }
 
     @Override
@@ -74,6 +92,9 @@ public class infopanel extends JPanel implements ActionListener {
         if(e.getSource()==marketButton) {
             market market = new market(hive);
             market.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+        }
+        if(Panel.botPlay){
+            botMoneyLabel.setText("Bot ma " + Hive.money + "$");
         }
     }
 }

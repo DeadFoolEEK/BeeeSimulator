@@ -13,17 +13,16 @@ public class market extends JPanel implements ActionListener {
     JLabel moneyLabel;
     JLabel beePriceLabel;
     JButton button1;
-    JButton button2; 
-
+    JButton button2;
     JButton button3;
     Hive hive;
     Timer timer;
     Timer timeron;
-    double value = 3.50;
+    static double value = 3.50;
     JTextField honeyAmountField;
     JTextField beeAmountField;
     static Random random = new Random();
-    int beePrice;
+    public static int beePrice;
     // int beessAmount;
     Panel Panel;
     Bee Bee;
@@ -195,7 +194,12 @@ public class market extends JPanel implements ActionListener {
                     beePriceLabel.setText("Cena za pszczole: " + beePrice + "$");
                     button2.setText("Zakup pszczole, aktualna cena: " + beePrice + "$");
                 
-            }}
+            }
+
+            public static void updateBeePriceForBots(){
+               beePrice = random.nextInt(30)+20;
+            }
+}
         
 
             

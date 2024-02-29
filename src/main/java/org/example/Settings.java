@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
-
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -17,11 +16,17 @@ public class Settings extends JFrame implements ActionListener {
     JLabel label3;
     JLabel label4;
     JPanel panel;
-
+    JPanel userAndBotsPanel;
     JButton button1;
     JSlider slider1;
     JSlider slider2;
     JSlider slider3;
+    ImageIcon botPeterIcon;
+    ImageIcon botBrunoIcon;
+    ImageIcon userRadioIcon;
+    JRadioButton userRadioButton;
+    JRadioButton botPeterButton;
+    JRadioButton botBrunoButton;
     public static int startBee;
     public static long dayTime;
     public static long nightTime;
@@ -112,6 +117,46 @@ public class Settings extends JFrame implements ActionListener {
             }
         });
 
+        userAndBotsPanel = new JPanel();
+        userAndBotsPanel.setPreferredSize(new Dimension(350,100));
+        userAndBotsPanel.setLayout(new FlowLayout());
+        userAndBotsPanel.setBackground(Color.ORANGE);
+
+        userRadioIcon = new ImageIcon("src/main/resources/userIcon.png");
+        botPeterIcon = new ImageIcon("src/main/resources/botPeterSepia.png");
+        botBrunoIcon = new ImageIcon("src/main/resources/botBrunoSepia.png");
+
+        userRadioButton = new JRadioButton();
+        botPeterButton = new JRadioButton();
+        botBrunoButton = new JRadioButton();
+
+        userRadioButton.setIcon(userRadioIcon);
+        botPeterButton.setIcon(botPeterIcon);
+        botBrunoButton.setIcon(botBrunoIcon);
+
+        userRadioButton.addActionListener(this);
+        botPeterButton.addActionListener(this);
+        botBrunoButton.addActionListener(this);
+
+        userRadioButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        userRadioButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        botBrunoButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        botBrunoButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        botPeterButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        botPeterButton.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        userRadioButton.setText("Uzytkownik");
+        botPeterButton.setText("Bot Piotrek");
+        botBrunoButton.setText("Bot Bruno");
+
+        ButtonGroup chosePlayerButtonsGroup = new ButtonGroup();
+        chosePlayerButtonsGroup.add(userRadioButton);
+        chosePlayerButtonsGroup.add(botPeterButton);
+        chosePlayerButtonsGroup.add(botBrunoButton);
+
+        userAndBotsPanel.add(userRadioButton);
+        userAndBotsPanel.add(botPeterButton);
+        userAndBotsPanel.add(botBrunoButton);
 
         this.add(panel);
 
@@ -122,6 +167,7 @@ public class Settings extends JFrame implements ActionListener {
         panel.add(slider2);
         panel.add(label4);
         panel.add(slider3);
+        panel.add(userAndBotsPanel);
         panel.add(button1);
 
         this.setVisible(true);
@@ -139,6 +185,27 @@ public class Settings extends JFrame implements ActionListener {
             if(nightTime != 0){
                 Panel.timeOfNight = nightTime;
             }
+        }
+        if(e.getSource() == userRadioButton){
+            Panel.botPlay = false;
+            botPeterIcon.setImage(new ImageIcon("src/main/resources/botPeterSepia.png").getImage());
+            botBrunoIcon.setImage(new ImageIcon("src/main/resources/botBrunoSepia.png").getImage());
+            userRadioIcon.setImage(new ImageIcon("src/main/resources/userIcon.png").getImage());
+
+        }
+        if(e.getSource() == botPeterButton){
+            Panel.botPlay = true;
+            Panel.botName = "Peter";
+            botPeterIcon.setImage(new ImageIcon("src/main/resources/botPeter.png").getImage());
+            botBrunoIcon.setImage(new ImageIcon("src/main/resources/botBrunoSepia.png").getImage());
+            userRadioIcon.setImage(new ImageIcon("src/main/resources/userIconSepia.png").getImage());
+        }
+        if(e.getSource() == botBrunoButton){
+            Panel.botPlay = true;
+            Panel.botName = "Bruno";
+            botPeterIcon.setImage(new ImageIcon("src/main/resources/botPeterSepia.png").getImage());
+            botBrunoIcon.setImage(new ImageIcon("src/main/resources/botBruno.png").getImage());
+            userRadioIcon.setImage(new ImageIcon("src/main/resources/userIconSepia.png").getImage());
         }
     }
 }

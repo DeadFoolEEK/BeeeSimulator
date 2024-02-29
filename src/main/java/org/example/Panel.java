@@ -13,6 +13,10 @@ import java.util.Random;
 public class Panel extends JPanel implements ActionListener {
     public final static int PANEL_WIDTH = 800;
     public final static int PANEL_HEIGHT = 800;
+    Bot bot;
+    static public boolean botPlay;
+    static public String botName;
+    static public boolean botDidAction;
     Timer timer;
     Hive hive;
     ArrayList<Flower> flowers;
@@ -31,6 +35,7 @@ public class Panel extends JPanel implements ActionListener {
     public static int howManyDie;
     public Image backgroundImage;
 
+
     Panel(Hive hive){
         /*if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
             beessAmount =5;
@@ -46,12 +51,24 @@ public class Panel extends JPanel implements ActionListener {
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
         hive.getAmountOfBees(beessAmount);
-
+        generateBot();
         beginDay();
         try {
             backgroundImage = ImageIO.read(new File("src/main/resources/field2.jpg")); // Ścieżka do pliku z obrazkiem tła
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void generateBot(){
+        if(botPlay){
+            if(botName.equals("Peter")){
+                bot = new BotPeter(hive);
+            }
+            else{
+                bot = new BotBruno(hive);
+            }
+            botDidAction = false;
         }
     }
 
@@ -76,6 +93,7 @@ public class Panel extends JPanel implements ActionListener {
         spawnBees();
         hive.getAmountOfBees(beessAmount);
         hive.addDay();
+        botDidAction = false;
         time_start = System.currentTimeMillis();
     }
     public void beginNight(){
@@ -97,9 +115,13 @@ public class Panel extends JPanel implements ActionListener {
         g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
         g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 5, 400);
         if(Hive.storedNectar > 0) {
-            g.drawString("Wszystkie pszczoly przezyly", 5, 500);
+            g.drawString("Wszystkie pszczoly przezyly", 100, 500);
         } else if (Hive.storedNectar <=0){
-            g.drawString("Z glodu umarlo " + howManyDie + "pszczol", 5, 500 );
+            g.drawString("Z glodu umarlo " + howManyDie + " pszczol", 100, 500 );
+        }
+        if(botPlay){
+            g.drawString("Bot kupil " + bot.getAmountOfBoughtBees() + " pszczol",100,600);
+            g.drawString("Bot kupil " + bot.getAmountOfBoughtFlowers() + " kwiatkow",100 ,700);
         }
     } else if(beessAmount <= 0) {
         g.drawString("Zadna pszczola nie przezyla, koniec symulacji",5,200);
@@ -217,9 +239,9 @@ public class Panel extends JPanel implements ActionListener {
                 beginNight(); // to ma znaczenie ze jest tutaj bo inaczej jest problem z bee eat or die 
                 bee_doing_sex();
                 bee_eat_or_die();
-                
-                
-                
+                if(botPlay && !botDidAction){
+                    bot.action();
+                }
             }
         }
         else{
