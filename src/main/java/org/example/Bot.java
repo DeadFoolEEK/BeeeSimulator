@@ -31,7 +31,7 @@ public abstract class Bot {
     }
 
     public void getHoneyPrice(){
-        honeyPrice = market.value;
+        honeyPrice = Market.value;
     }
 
 
@@ -54,13 +54,13 @@ public abstract class Bot {
     }
     public void buySomething(){
         cleanBoughtThings();
-        market.updateBeePriceForBots();
+        Market.updateBeePriceForBots();
         double moneyToSpendOnFlowers = totalMoneyForBuying * chanceToBuyFlower;
         double moneyToSpendOnBees = totalMoneyForBuying * chanceToBuyBee;
 
-        while(moneyToSpendOnBees > market.beePrice){
-            moneyToSpendOnBees -= market.beePrice;
-            Hive.money -= market.beePrice;
+        while(moneyToSpendOnBees > Market.beePrice){
+            moneyToSpendOnBees -= Market.beePrice;
+            Hive.money -= Market.beePrice;
             Panel.beessAmount++;
             boughtBees++;
         }

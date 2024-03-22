@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 
-public class market extends JPanel implements ActionListener {
+public class Market extends JPanel implements ActionListener {
     JFrame frame;
     JLabel amountOfHoney;
     JLabel moneyLabel;
@@ -29,7 +29,7 @@ public class market extends JPanel implements ActionListener {
     private boolean isNightChanged = false;
     
 
-   public market(Hive hive){
+   public Market(Hive hive){
         
         this.hive = hive;
         

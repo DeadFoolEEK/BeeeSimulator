@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class infopanel extends JPanel implements ActionListener {
+public class Infopanel extends JPanel implements ActionListener {
     public final static int PANEL_WIDTH = 300;
     public final static int PANEL_HEIGHT = 800;
     Hive hive;
@@ -18,9 +18,10 @@ public class infopanel extends JPanel implements ActionListener {
     JButton marketButton;
     JLabel amountOfFlowersLabel;
     JLabel botMoneyLabel;
+    JLabel daysLeftToSimulationLabel;
     Panel Panel;
 
-    infopanel(Hive hive){
+    Infopanel(Hive hive){
         timer = new Timer(100,this);
         timer.start();
         this.hive = hive;
@@ -36,6 +37,10 @@ public class infopanel extends JPanel implements ActionListener {
         dayInfoLabel = new JLabel();
         dayInfoLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
         dayInfoLabel.setBounds(10,250,300,100);
+
+        daysLeftToSimulationLabel = new JLabel();
+        daysLeftToSimulationLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
+        daysLeftToSimulationLabel.setBounds(10,200,300,100);
 
         amountOfNectarLabel = new JLabel();
         amountOfNectarLabel.setFont(new Font("Comic Sans",Font.BOLD,30));
@@ -72,6 +77,7 @@ public class infopanel extends JPanel implements ActionListener {
         this.add(amountOfBeesLabel);
         this.add(infoLabel);
         this.add(dayInfoLabel);
+        this.add(daysLeftToSimulationLabel);
         this.add(amountOfNectarLabel);
 
         if(!Panel.botPlay){
@@ -88,9 +94,10 @@ public class infopanel extends JPanel implements ActionListener {
         amountOfNectarLabel.setText("Nektar w ulu: " + hive.storedNectar);
         amountOfBeesLabel.setText("Ilosc pszczol: " + hive.amountOfBess);
         amountOfFlowersLabel.setText("Ilosc kwiatow: " + Panel.flowersAmount);
-        dayInfoLabel.setText("Dzien " + Hive.day);
+        daysLeftToSimulationLabel.setText("Dni do konca: " + Panel.daysLeftToSimulationEnd);
+        dayInfoLabel.setText("Dzien: " + Hive.day);
         if(e.getSource()==marketButton) {
-            market market = new market(hive);
+            Market market = new Market(hive);
             market.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
         }
         if(Panel.botPlay){

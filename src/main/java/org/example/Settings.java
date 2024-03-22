@@ -35,7 +35,7 @@ public class Settings extends JFrame implements ActionListener {
         // Creating window of settings start
         this.setSize(350, 500);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setTitle("Bee Simulator Settings");
+        this.setTitle("Bee Simulator - Settings");
         this.setResizable(false);
 
         // Creating Label

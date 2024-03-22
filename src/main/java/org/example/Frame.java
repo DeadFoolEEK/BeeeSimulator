@@ -11,10 +11,9 @@ public class Frame extends JFrame{
         this.setResizable(false);
         this.setTitle("Bee Simulator");
         this.setLayout(new FlowLayout());
-        this.add(new Panel(hive), BorderLayout.CENTER);
-        this.add(new infopanel(hive),BorderLayout.EAST);
+        this.add(new Panel(hive,this), BorderLayout.CENTER);
+        this.add(new Infopanel(hive),BorderLayout.EAST);
         this.pack();
         this.setVisible(true);
     }
-
 }

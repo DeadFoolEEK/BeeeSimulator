@@ -34,19 +34,24 @@ public class Panel extends JPanel implements ActionListener {
     public static int eating;
     public static int howManyDie;
     public Image backgroundImage;
+    private int daysAmount = 0; // liczy ile dni trwa symulacja
+    private final int maximumDaysAmount = 5; // trzeba to ustawic w settings, uzytkownik powinien moc wybrac ilosc dni trwania symulacji
+    public static int daysLeftToSimulationEnd = 0; // static, poniewaz jest uzywane przez Infopanel
+    private int daysPassed; // kopia daysAmount, uzywana do przekazania do zapisu, gdyz daysAmount jest uzywane gdy beesAmount <= 0 w drawNightInfo()
+    Frame frame;
 
-
-    Panel(Hive hive){
+    Panel(Hive hive,Frame frame){
         /*if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
             beessAmount =5;
             timeOfDay= 7000;
             timeOfNight = 5000;
         }*/
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
-
+        this.frame = frame;
         isNight = false;
         timer = new Timer(10,this);
         timer.start();
+        daysLeftToSimulationEnd = maximumDaysAmount;
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
@@ -86,6 +91,8 @@ public class Panel extends JPanel implements ActionListener {
 
     public void beginDay(){
         // this.setBackground(Color.green);
+        daysAmount++;
+        daysPassed++;
         isNight = false;
         nightStared = false;
         hive.clearTodaysStoreNectar();
@@ -99,6 +106,7 @@ public class Panel extends JPanel implements ActionListener {
     public void beginNight(){
         if(!nightStared){
             this.setBackground(Color.BLACK);
+            updateDaysAmountToSimulationEnd();
             flowers.clear();
             bees.clear();
             hive.addTodaysNectarToTotalNectar();
@@ -124,11 +132,11 @@ public class Panel extends JPanel implements ActionListener {
             g.drawString("Bot kupil " + bot.getAmountOfBoughtFlowers() + " kwiatkow",100 ,700);
         }
     } else if(beessAmount <= 0) {
-        g.drawString("Zadna pszczola nie przezyla, koniec symulacji",5,200);
-        timeOfNight = 100000;
+            g.drawString("Zadna pszczola nie przezyla, koniec symulacji",5,200);
+            // timeOfNight = 100000;
+            daysAmount = maximumDaysAmount; //daysAmount traci swa wartosc, ale istnieje kopia daysPassed
     } 
-        
-            
+
     }
 
     public Flower selectFlower(){
@@ -207,9 +215,9 @@ public class Panel extends JPanel implements ActionListener {
         eating = beessAmount * 2;
         Hive.storedNectar -= eating;
         if(Hive.storedNectar < 0) {
-            System.out.println(Hive.storedNectar);
+           // System.out.println(Hive.storedNectar);
             howManyDie = Hive.storedNectar * (-1) / 2;
-            System.out.println(howManyDie);
+          //  System.out.println(howManyDie);
             beessAmount -= howManyDie;
             Hive.storedNectar = 0;
         }
@@ -225,30 +233,55 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    private void updateDaysAmountToSimulationEnd(){
+        daysLeftToSimulationEnd--;
+    }
+
+    private ArrayList<String> setSimulationResults(){
+        ArrayList<String> simulationResults = new ArrayList<>();
+
+        //trzeba dodac jakies wyniki do zapisu, te sa robocze
+        simulationResults.add("Symulacja trwała " + (daysPassed - 1) + " dni");
+        simulationResults.add("Ilosc pszczol " + beessAmount);
+
+        return simulationResults;
+    }
+
+    private void endOfSimulationProcedure(){
+        new EndOfSimulationFrame(setSimulationResults());
+        frame.dispose();
+        timer.stop();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(!isNight){
-            beeFlowerSelector();
-            for(int i = 0; i < beessAmount ;i++){
-                bees.get(i).beeMove();
+        if(maximumDaysAmount >= daysAmount){
+            if(!isNight){
+                beeFlowerSelector();
+                for(int i = 0; i < beessAmount ;i++){
+                    bees.get(i).beeMove();
+                }
+                bee_flower_collissionDetector();
+                bee_hive_collisionDetector();
+                if(System.currentTimeMillis() - time_start >= timeOfDay){
+                    isNight = true;
+                    beginNight(); // to ma znaczenie ze jest tutaj bo inaczej jest problem z bee eat or die
+                    bee_doing_sex();
+                    bee_eat_or_die();
+                    if(botPlay && !botDidAction){
+                        bot.action();
+                    }
+                }
             }
-            bee_flower_collissionDetector();
-            bee_hive_collisionDetector();
-            if(System.currentTimeMillis() - time_start >= timeOfDay){
-                isNight = true;
-                beginNight(); // to ma znaczenie ze jest tutaj bo inaczej jest problem z bee eat or die 
-                bee_doing_sex();
-                bee_eat_or_die();
-                if(botPlay && !botDidAction){
-                    bot.action();
+            else{
+                if(System.currentTimeMillis() - time_start >= timeOfNight){
+                    isNight = false;
+                    beginDay();
                 }
             }
         }
         else{
-            if(System.currentTimeMillis() - time_start >= timeOfNight){
-                isNight = false;
-                beginDay();
-            }
+            endOfSimulationProcedure();
         }
         repaint();
     }

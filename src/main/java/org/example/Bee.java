@@ -122,9 +122,11 @@ public class Bee {
         while(xVelocity == 0 && yVelocity == 0){
             xVelocity = random.nextInt(-2,2);
             yVelocity = random.nextInt(-2,2);
+
         }
         isRandomized = true;
     }
+
     public void getNectar(Flower flower){
         if(storedNectar + nectarGrabAmount <= maximumNectarStored && flower.nectarAmount > 0 && selectedFlower == flower){
             flower.nectarAmount -= nectarGrabAmount;
