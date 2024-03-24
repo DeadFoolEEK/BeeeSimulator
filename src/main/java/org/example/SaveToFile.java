@@ -13,8 +13,8 @@ public class SaveToFile {
     public void saveResultsToFile(ArrayList<String> dataToSave){
         try {
             PrintWriter writer = new PrintWriter(fileNameTemplate);
-            for (String datum : dataToSave) {
-                writer.write(datum);
+            for (String data : dataToSave) {
+                writer.write(data);
                 writer.write('\n');
             }
             writer.close();

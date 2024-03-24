@@ -39,6 +39,7 @@ public class Panel extends JPanel implements ActionListener {
     public static int daysLeftToSimulationEnd = 0; // static, poniewaz jest uzywane przez Infopanel
     private int daysPassed; // kopia daysAmount, uzywana do przekazania do zapisu, gdyz daysAmount jest uzywane gdy beesAmount <= 0 w drawNightInfo()
     Frame frame;
+    RandomEventGenerator randomEventGenerator;
 
     Panel(Hive hive,Frame frame){
         /*if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
@@ -52,6 +53,7 @@ public class Panel extends JPanel implements ActionListener {
         timer = new Timer(10,this);
         timer.start();
         daysLeftToSimulationEnd = maximumDaysAmount;
+        randomEventGenerator = new RandomEventGenerator();
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
@@ -101,6 +103,7 @@ public class Panel extends JPanel implements ActionListener {
         hive.getAmountOfBees(beessAmount);
         hive.addDay();
         botDidAction = false;
+        randomEventGenerator.setRandomEventHappenedToFalse();
         time_start = System.currentTimeMillis();
     }
     public void beginNight(){
@@ -110,6 +113,7 @@ public class Panel extends JPanel implements ActionListener {
             flowers.clear();
             bees.clear();
             hive.addTodaysNectarToTotalNectar();
+            randomEventGenerator.generateRandomEvent();
             time_start = System.currentTimeMillis();
             nightStared = true;
         }
@@ -119,23 +123,35 @@ public class Panel extends JPanel implements ActionListener {
         g.setColor(Color.green);
         g.setFont(new Font("Ink Free",Font.BOLD,40));
         if(beessAmount > 0) {
-        g.drawString("Dzien " + Hive.day + " dobiegl konca",200,200);
-        g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
-        g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 5, 400);
-        if(Hive.storedNectar > 0) {
-            g.drawString("Wszystkie pszczoly przezyly", 100, 500);
-        } else if (Hive.storedNectar <=0){
-            g.drawString("Z glodu umarlo " + howManyDie + " pszczol", 100, 500 );
+
+            if(randomEventGenerator.getRandomEventHappened()){
+                randomEventGenerator.drawRandomEventResult(g);
+                g.setColor(Color.green);
+            }
+
+            g.drawString("Dzien " + Hive.day + " dobiegl konca",200,200);
+            g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
+            g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 5, 400);
+
+            if(Hive.storedNectar > 0) {
+                g.drawString("Wszystkie pszczoly przezyly", 100, 500);
+            }
+
+            else if (Hive.storedNectar <=0){
+                g.drawString("Z glodu umarlo " + howManyDie + " pszczol", 100, 500 );
+            }
+
+            if(botPlay){
+                g.drawString("Bot kupil " + bot.getAmountOfBoughtBees() + " pszczol",100,600);
+                g.drawString("Bot kupil " + bot.getAmountOfBoughtFlowers() + " kwiatkow",100 ,700);
+            }
+
         }
-        if(botPlay){
-            g.drawString("Bot kupil " + bot.getAmountOfBoughtBees() + " pszczol",100,600);
-            g.drawString("Bot kupil " + bot.getAmountOfBoughtFlowers() + " kwiatkow",100 ,700);
-        }
-    } else if(beessAmount <= 0) {
+        else if(beessAmount <= 0) {
             g.drawString("Zadna pszczola nie przezyla, koniec symulacji",5,200);
             // timeOfNight = 100000;
             daysAmount = maximumDaysAmount; //daysAmount traci swa wartosc, ale istnieje kopia daysPassed
-    } 
+        }
 
     }
 
