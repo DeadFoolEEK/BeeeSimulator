@@ -5,30 +5,33 @@ import java.awt.*;
 public class RandomEventGenerator {
     private boolean randomEventHappened;
     private String randomEventResultsInfo;
-    public RandomEventGenerator(){
-
+    private final boolean randomEventsActived;
+    public RandomEventGenerator(boolean randomEventsAcitved){
+        this.randomEventsActived = randomEventsAcitved;
     }
 
     public void generateRandomEvent(){
-        int min = 1;
-        int max = 100;
-        int randomNumber = getRandomNumber(min, max);
+        if(randomEventsActived){
+            int min = 1;
+            int max = 100;
+            int randomNumber = getRandomNumber(min, max);
 
-        if(randomNumber >= 1 && randomNumber <= 5){ //5 % szans
-            winnieThePoohStoleNectar();
-            randomEventHappened = true;
-        }
-        else if(randomNumber >= 6 && randomNumber <= 10){ //5 % szans
-            tiggerKilledBees();
-            randomEventHappened = true;
-        }
-        else if(randomNumber >= 11 && randomNumber <= 15){ //5 % szans
-            pigletDestroyedFlowers();
-            randomEventHappened = true;
-        }
-        else if(randomNumber >= 16 && randomNumber <= 20){ //5 % szans
-            christopherPlantsFlowers();
-            randomEventHappened = true;
+            if(randomNumber >= 1 && randomNumber <= 5){ //5 % szans
+                winnieThePoohStoleNectar();
+                randomEventHappened = true;
+            }
+            else if(randomNumber >= 6 && randomNumber <= 10){ //5 % szans
+                tiggerKilledBees();
+                randomEventHappened = true;
+            }
+            else if(randomNumber >= 11 && randomNumber <= 15){ //5 % szans
+                pigletDestroyedFlowers();
+                randomEventHappened = true;
+            }
+            else if(randomNumber >= 16 && randomNumber <= 20){ //5 % szans
+                christopherPlantsFlowers();
+                randomEventHappened = true;
+            }
         }
     }
 

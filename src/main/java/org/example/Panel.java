@@ -35,25 +35,21 @@ public class Panel extends JPanel implements ActionListener {
     public static int howManyDie;
     public Image backgroundImage;
     private int daysAmount = 0; // liczy ile dni trwa symulacja
-    private final int maximumDaysAmount = 5; // trzeba to ustawic w settings, uzytkownik powinien moc wybrac ilosc dni trwania symulacji
+    public static int maximumDaysAmount = 15; // trzeba to ustawic w settings, uzytkownik powinien moc wybrac ilosc dni trwania symulacji
     public static int daysLeftToSimulationEnd = 0; // static, poniewaz jest uzywane przez Infopanel
     private int daysPassed; // kopia daysAmount, uzywana do przekazania do zapisu, gdyz daysAmount jest uzywane gdy beesAmount <= 0 w drawNightInfo()
     Frame frame;
     RandomEventGenerator randomEventGenerator;
+    public static boolean randomEventsActived = false;
 
     Panel(Hive hive,Frame frame){
-        /*if(beessAmount==0 || timeOfDay==0 || timeOfNight==0) {
-            beessAmount =5;
-            timeOfDay= 7000;
-            timeOfNight = 5000;
-        }*/
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.frame = frame;
         isNight = false;
         timer = new Timer(10,this);
         timer.start();
         daysLeftToSimulationEnd = maximumDaysAmount;
-        randomEventGenerator = new RandomEventGenerator();
+        randomEventGenerator = new RandomEventGenerator(randomEventsActived);
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();

@@ -1,4 +1,5 @@
 package org.example;
+
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.*;
@@ -6,6 +7,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -15,25 +18,28 @@ public class Settings extends JFrame implements ActionListener {
     JLabel label2;
     JLabel label3;
     JLabel label4;
+    JLabel daysAmountLabel;
     JPanel panel;
     JPanel userAndBotsPanel;
     JButton button1;
     JSlider slider1;
     JSlider slider2;
     JSlider slider3;
+    JSlider slider4;
     ImageIcon botPeterIcon;
     ImageIcon botBrunoIcon;
     ImageIcon userRadioIcon;
     JRadioButton userRadioButton;
     JRadioButton botPeterButton;
     JRadioButton botBrunoButton;
+    JCheckBox randomEventGeneratorCheckBox;
     public static int startBee;
     public static long dayTime;
     public static long nightTime;
 
     Settings() {
         // Creating window of settings start
-        this.setSize(350, 500);
+        this.setSize(350, 600);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("Bee Simulator - Settings");
         this.setResizable(false);
@@ -59,15 +65,16 @@ public class Settings extends JFrame implements ActionListener {
         label4.setText("Dlugosc nocy (sekundy)");
         label4.setFont(new Font("Comic Sans",Font.BOLD,20));
 
-
+        daysAmountLabel = new JLabel();
+        daysAmountLabel.setSize(350, 30);
+        daysAmountLabel.setText("Ilosc dni trwania symulacji");
+        daysAmountLabel.setFont(new Font("Comic Sans",Font.BOLD,20));
 
         // Creating panel
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(350,500));
         panel.setLayout(new FlowLayout());
         panel.setBackground(Color.ORANGE);
-
-
 
         // Creating buttons
         button1 = new JButton();
@@ -88,7 +95,6 @@ public class Settings extends JFrame implements ActionListener {
                     startBee = slider1.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
             }
         });
-
 
         slider2 = new JSlider(5, 15);
         slider2.setPaintTicks(true);
@@ -114,6 +120,31 @@ public class Settings extends JFrame implements ActionListener {
             public void stateChanged(ChangeEvent e) {
                 nightTime = slider3.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
                 nightTime = nightTime * 1000; // zmiana na milisekundy
+            }
+        });
+
+        slider4 = new JSlider(1, 31);
+        slider4.setPaintTicks(true);
+        slider4.setMinorTickSpacing(1);
+        slider4.setPaintLabels(true);
+        slider4.setMajorTickSpacing(10);
+        slider4.setValue(15);
+        slider4.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                Panel.maximumDaysAmount = slider4.getValue();
+            }
+        });
+
+        randomEventGeneratorCheckBox = new JCheckBox("Wydarzenia losowe");
+        randomEventGeneratorCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(e.getStateChange() == 1){
+                    Panel.randomEventsActived = true;
+                }
+                else{
+                    Panel.randomEventsActived = false;
+                }
             }
         });
 
@@ -167,6 +198,9 @@ public class Settings extends JFrame implements ActionListener {
         panel.add(slider2);
         panel.add(label4);
         panel.add(slider3);
+        panel.add(daysAmountLabel);
+        panel.add(slider4);
+        panel.add(randomEventGeneratorCheckBox);
         panel.add(userAndBotsPanel);
         panel.add(button1);
 
@@ -196,16 +230,22 @@ public class Settings extends JFrame implements ActionListener {
         if(e.getSource() == botPeterButton){
             Panel.botPlay = true;
             Panel.botName = "Peter";
-            botPeterIcon.setImage(new ImageIcon("src/main/resources/botPeter.png").getImage());
-            botBrunoIcon.setImage(new ImageIcon("src/main/resources/botBrunoSepia.png").getImage());
-            userRadioIcon.setImage(new ImageIcon("src/main/resources/userIconSepia.png").getImage());
+            botPeterIcon = new ImageIcon("src/main/resources/botPeter.png");
+            botPeterButton.setIcon(botPeterIcon);
+            botBrunoIcon = new ImageIcon("src/main/resources/botBrunoSepia.png");
+            botBrunoButton.setIcon(botBrunoIcon);
+            userRadioIcon = new ImageIcon("src/main/resources/userIconSepia.png");
+            userRadioButton.setIcon(userRadioIcon);
         }
         if(e.getSource() == botBrunoButton){
             Panel.botPlay = true;
             Panel.botName = "Bruno";
-            botPeterIcon.setImage(new ImageIcon("src/main/resources/botPeterSepia.png").getImage());
-            botBrunoIcon.setImage(new ImageIcon("src/main/resources/botBruno.png").getImage());
-            userRadioIcon.setImage(new ImageIcon("src/main/resources/userIconSepia.png").getImage());
+            botPeterIcon = new ImageIcon("src/main/resources/botPeterSepia.png");
+            botPeterButton.setIcon(botPeterIcon);
+            botBrunoIcon = new ImageIcon("src/main/resources/botBruno.png");
+            botBrunoButton.setIcon(botBrunoIcon);
+            userRadioIcon = new ImageIcon("src/main/resources/userIconSepia.png");
+            userRadioButton.setIcon(userRadioIcon);
         }
     }
 }
