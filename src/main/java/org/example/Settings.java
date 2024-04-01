@@ -13,6 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class Settings extends JFrame implements ActionListener {
+
     Panel Panel;
     JLabel label1;
     JLabel label2;
@@ -106,7 +107,6 @@ public class Settings extends JFrame implements ActionListener {
             public void stateChanged(ChangeEvent e) {
                     dayTime = slider2.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
                     dayTime = dayTime * 1000; // zmiana na milisekundy
-
             }
         });
 
@@ -248,4 +248,5 @@ public class Settings extends JFrame implements ActionListener {
             userRadioButton.setIcon(userRadioIcon);
         }
     }
+
 }

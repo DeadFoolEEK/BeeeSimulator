@@ -4,30 +4,24 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 
 public class Bee {
-    public int x;
-    public int y;
-    public int xBeeSpawnLocation;
-    public int yBeeSpawnLocation;
-    public static final int beeSize = 15;
-    public int xVelocity = 1;
-    public int yVelocity = 1;
-    public int storedNectar;
-    public static final int nectarGrabAmount = 20;
-    public final static int maximumNectarStored = 20;
+
+    private int x;
+    private int y;
+    private int xBeeSpawnLocation;
+    private int yBeeSpawnLocation;
+    private static final int beeSize = 15;
+    private int xVelocity = 1;
+    private int yVelocity = 1;
+    private int storedNectar;
+    private static final int nectarGrabAmount = 20;
+    private final static int maximumNectarStored = 20;
     Flower selectedFlower;
-    boolean hasSelectedFlower;
-    boolean readyToDepositNectar;
-    boolean isRandomized = false;
+    private boolean hasSelectedFlower;
+    private boolean readyToDepositNectar;
+    private boolean beeVelocityisRandomized = false;
     Random random;
-    int height = 20;
-    int width = 20;
     private static Image rightBeeImage;
     private static Image leftBeeImage;
     static {
@@ -40,18 +34,21 @@ public class Bee {
             leftBeeImage = null;
         }
     }
-    Bee(){
+
+    public Bee(){
         random = new Random();
         beeSpawnRandomizer();
         hasSelectedFlower = false;
         readyToDepositNectar = false;
     }
-    public void beeSpawnRandomizer(){
+
+    private void beeSpawnRandomizer(){
         x = random.nextInt(Hive.x + 2*beeSize, Hive.x + Hive.size - 2*beeSize);
         y = random.nextInt(Hive.y + 2*beeSize, Hive.y + Hive.size - 2*beeSize);
         xBeeSpawnLocation = x;
         yBeeSpawnLocation = y;
     }
+
     public void paintBee(Graphics g){
            
             if (x >= 400 && !readyToDepositNectar) { // pszczółka leci w prawo
@@ -64,24 +61,26 @@ public class Bee {
                 g.drawImage(rightBeeImage, x, y, null);
             }
     }
+
     public void getFlower(Flower flower){
-        flower.isOccupiedByBee = true;
+        flower.setIsOccupiedByBeeToTrue();
         hasSelectedFlower = true;
         selectedFlower = flower;
     }
+
     public void beeMove(){
         //move to selected flower
         if(hasSelectedFlower && !readyToDepositNectar){
-            if(selectedFlower.x > x){
+            if(selectedFlower.getX() > x){
                 x += xVelocity;
             }
-            else if(selectedFlower.x < x){
+            else if(selectedFlower.getX() < x){
                 x -= xVelocity;
             }
-            if(selectedFlower.y > y){
+            if(selectedFlower.getY() > y){
                 y += yVelocity;
             }
-            else if(selectedFlower.y < y){
+            else if(selectedFlower.getY() < y){
                 y -= yVelocity;
             }
         }
@@ -102,21 +101,22 @@ public class Bee {
         }
         //no flowers left
         if(!hasSelectedFlower && !readyToDepositNectar){
-            if(!isRandomized){
+            if(!beeVelocityisRandomized){
                 beeVelocityRandomizer();
             }
-            if(x > Panel.PANEL_WIDTH - beeSize || x < 0 ){
+            if(x > Panel.PANEL_WIDTH - beeSize - 25 || x < -25 ){
                 xVelocity *= -1;
             }
-            if(y > Panel.PANEL_HEIGHT - beeSize || y < 0){
+            if(y > Panel.PANEL_HEIGHT - beeSize  - 35 || y < -25){
                 yVelocity *= -1;
             }
             x += xVelocity;
             y += yVelocity;
         }
     }
+
     //used to randomize x and y velocity after no flowers are left
-    public void beeVelocityRandomizer(){
+    private void beeVelocityRandomizer(){
         xVelocity = random.nextInt(-2,2);
         yVelocity = random.nextInt(-2,2);
         while(xVelocity == 0 && yVelocity == 0){
@@ -124,12 +124,13 @@ public class Bee {
             yVelocity = random.nextInt(-2,2);
 
         }
-        isRandomized = true;
+        beeVelocityisRandomized = true;
     }
 
     public void getNectar(Flower flower){
-        if(storedNectar + nectarGrabAmount <= maximumNectarStored && flower.nectarAmount > 0 && selectedFlower == flower){
-            flower.nectarAmount -= nectarGrabAmount;
+        if(storedNectar + nectarGrabAmount <= maximumNectarStored && flower.getNectarAmount() > 0 && selectedFlower == flower){
+            //flower.nectarAmount -= nectarGrabAmount;
+            flower.setNectarAmount(flower.getNectarAmount()-nectarGrabAmount);
             storedNectar += nectarGrabAmount;
             readyToDepositNectar = true;
         }
@@ -143,4 +144,41 @@ public class Bee {
             readyToDepositNectar = false;
         }
     }
+
+    public int getxBeeSpawnLocation(){
+        return xBeeSpawnLocation;
+    }
+
+    public int getyBeeSpawnLocation(){
+        return yBeeSpawnLocation;
+    }
+
+    public int getxVelocity(){
+        return xVelocity;
+    }
+
+    public int getyVelocity(){
+        return yVelocity;
+    }
+
+    public boolean getbeeVelocityisRandomized(){
+        return beeVelocityisRandomized;
+    }
+
+    public boolean getHasSelectedFlower(){
+        return hasSelectedFlower;
+    }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
+    public static int getBeeSize(){
+        return beeSize;
+    }
+
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Infopanel extends JPanel implements ActionListener {
+
     public final static int PANEL_WIDTH = 300;
     public final static int PANEL_HEIGHT = 800;
     Hive hive;
@@ -104,4 +105,5 @@ public class Infopanel extends JPanel implements ActionListener {
             botMoneyLabel.setText("Bot ma " + Hive.money + "$");
         }
     }
+
 }

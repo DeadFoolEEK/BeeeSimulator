@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 public class Market extends JPanel implements ActionListener {
+
     JFrame frame;
     JLabel amountOfHoney;
     JLabel moneyLabel;
@@ -17,15 +18,12 @@ public class Market extends JPanel implements ActionListener {
     JButton button3;
     Hive hive;
     Timer timer;
-//    Timer timeron;
     static double value = 3.50;
     JTextField honeyAmountField;
     JTextField beeAmountField;
     static Random random = new Random();
     public static int beePrice;
-    // int beessAmount;
     Panel Panel;
-//    Bee Bee;
     private boolean isNightChanged = false;
 
 
@@ -38,7 +36,6 @@ public class Market extends JPanel implements ActionListener {
         frame.setSize(500, 825);
         frame.setTitle("Market");
         frame.setResizable(false);
-
 
         // --> panels
         this.setLayout(null);
@@ -124,9 +121,7 @@ public class Market extends JPanel implements ActionListener {
         panel2.add(button2);
         panel2.add(button3);
 
-
         this.add(backgroundLabel);
-
 
         frame.setVisible(true);
 
@@ -136,6 +131,7 @@ public class Market extends JPanel implements ActionListener {
         timer.start();
 
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         amountOfHoney.setText("Posiadany miod: " + hive.storedNectar);
@@ -203,6 +199,7 @@ public class Market extends JPanel implements ActionListener {
             isNightChanged = false;
         }
     }
+
     public void updateBeePrice(int newPrice) {
         beePrice = newPrice;
         beePriceLabel.setText("Cena za pszczole: " + beePrice + "$");
@@ -213,4 +210,5 @@ public class Market extends JPanel implements ActionListener {
     public static void updateBeePriceForBots(){
         beePrice = random.nextInt(30)+20;
     }
+
 }

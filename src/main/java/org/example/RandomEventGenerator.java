@@ -58,43 +58,53 @@ public class RandomEventGenerator {
     //Kubus Puchatek kradnie miod/nektar
     private void winnieThePoohStoleNectar(){
         int nectarAmount = Hive.storedNectar;
+        int howMuchNectarWasEaten;
         if(nectarAmount - nectarAmount/2 < 0){
+            howMuchNectarWasEaten = nectarAmount;
             Hive.storedNectar = 0;
         }
         else{
+            howMuchNectarWasEaten = Hive.storedNectar/2;
             Hive.storedNectar -= Hive.storedNectar/2;
         }
-        randomEventResultsInfo = "Kubus Puchatek zjadl miod";
+        randomEventResultsInfo = "Kubus Puchatek zjadl " + howMuchNectarWasEaten + " miodu";
     }
 
     //Tygrysek zabija pszczoly
     private void tiggerKilledBees(){
         int beesAmount = Panel.beessAmount;
+        int howMuchBessWerekilled;
         if(beesAmount - beesAmount/2 < 0){
+            howMuchBessWerekilled = beesAmount ;
             Panel.beessAmount = 0;
         }
         else{
+            howMuchBessWerekilled = Panel.beessAmount/2;
             Panel.beessAmount -= Panel.beessAmount/2;
         }
-        randomEventResultsInfo = "Tygyrs zabil pszczoly";
+        randomEventResultsInfo = "Tygyrsek zabil " + howMuchBessWerekilled + " pszczol";
     }
 
     //Prosiaczek niszczy kwiatki
     private void pigletDestroyedFlowers(){
         int flowersAmount = Panel.flowersAmount;
+        int howMuchFlowersWereDestroyed;
         if(flowersAmount - flowersAmount/2 < 0){
+            howMuchFlowersWereDestroyed = flowersAmount;
             Panel.flowersAmount = 0;
         }
         else{
+            howMuchFlowersWereDestroyed = Panel.flowersAmount/2;
             Panel.flowersAmount -= Panel.flowersAmount/2;
         }
-        randomEventResultsInfo = "Prosiaczek zniszczyl kwiatki";
+        randomEventResultsInfo = "Prosiaczek zniszczyl " + howMuchFlowersWereDestroyed + " kwiatkow";
     }
 
     //Krzys sadzi kwiatki
     private void christopherPlantsFlowers(){
         Panel.flowersAmount += Panel.flowersAmount/2;
-        randomEventResultsInfo = "Krzysz zasadzil kwiatki";
+        int howMuchFlowersWerePlanted = Panel.flowersAmount/2;
+        randomEventResultsInfo = "Krzysz zasadzil " + howMuchFlowersWerePlanted + " kwiatkow";
     }
 
 }

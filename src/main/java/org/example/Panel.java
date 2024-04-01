@@ -8,9 +8,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Panel extends JPanel implements ActionListener {
+
     public final static int PANEL_WIDTH = 800;
     public final static int PANEL_HEIGHT = 800;
     Bot bot;
@@ -53,7 +55,7 @@ public class Panel extends JPanel implements ActionListener {
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
-        hive.getAmountOfBees(beessAmount);
+        hive.setAmountOfBees(beessAmount);
         generateBot();
         beginDay();
         try {
@@ -63,7 +65,7 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    public void generateBot(){
+    private void generateBot(){
         if(botPlay){
             if(botName.equals("Peter")){
                 bot = new BotPeter(hive);
@@ -75,19 +77,19 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    public void spawnFlowers(){
+    private void spawnFlowers(){
         for(int i = 0; i < flowersAmount;i++){
             flowers.add(new Flower());
         }
     }
 
-    public void spawnBees(){
+    private void spawnBees(){
         for(int i = 0; i < beessAmount ;i++){
             bees.add(new Bee());
         }
     }
 
-    public void beginDay(){
+    private void beginDay(){
         // this.setBackground(Color.green);
         daysAmount++;
         daysPassed++;
@@ -96,13 +98,13 @@ public class Panel extends JPanel implements ActionListener {
         hive.clearTodaysStoreNectar();
         spawnFlowers();
         spawnBees();
-        hive.getAmountOfBees(beessAmount);
+        hive.setAmountOfBees(beessAmount);
         hive.addDay();
         botDidAction = false;
         randomEventGenerator.setRandomEventHappenedToFalse();
         time_start = System.currentTimeMillis();
     }
-    public void beginNight(){
+    private void beginNight(){
         if(!nightStared){
             this.setBackground(Color.BLACK);
             updateDaysAmountToSimulationEnd();
@@ -151,21 +153,21 @@ public class Panel extends JPanel implements ActionListener {
 
     }
 
-    public Flower selectFlower(){
+    private Flower selectFlower(){
         for(int i = 0; i < flowersAmount ;i++){
-            if(flowers.get(i).nectarAmount != 0 && !flowers.get(i).isOccupiedByBee){
+            if(flowers.get(i).getNectarAmount() != 0 && !flowers.get(i).getIsOccupiedByBee()){
                 return flowers.get(i);
             }
         }
         return null;
     }
 
-    public void beeFlowerSelector(){
+    private void beeFlowerSelector(){
         for (Bee bee : bees) {
-            if (!bee.hasSelectedFlower) {
+            if (!bee.getHasSelectedFlower()) {
                 selectedFlower = selectFlower();
                 if (selectedFlower != null) {
-                    bee.getFlower(selectFlower());
+                    bee.getFlower(Objects.requireNonNull(selectFlower()));
                 }
             }
         }
@@ -187,27 +189,27 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
     //DO POPRAWY
-    public void bee_flower_collissionDetector(){
+    private void bee_flower_collissionDetector(){
         for(int i = 0; i < flowersAmount;i++){
             for(int j = 0; j < beessAmount ;j++){
-                double distanceFromFlowerToBee = Math.sqrt((Math.pow(flowers.get(i).x - bees.get(j).x,2)) + Math.pow(flowers.get(i).y - bees.get(j).y,2));
-                if(distanceFromFlowerToBee < (double) Flower.flowerSize - Bee.beeSize){
+                double distanceFromFlowerToBee = Math.sqrt((Math.pow(flowers.get(i).getX() - bees.get(j).getX(),2)) + Math.pow(flowers.get(i).getY() - bees.get(j).getY(),2));
+                if(distanceFromFlowerToBee < (double) Flower.getFlowerSize() - Bee.getBeeSize()){
                     bees.get(j).getNectar(flowers.get(i));
                 }
             }
         }
     }
     //DO POPRAWY
-    public void bee_hive_collisionDetector(){
+    private void bee_hive_collisionDetector(){
         for(int i = 0; i < beessAmount;i++){//punkt (400,400) to srodek ula
-            double distanceFromHiveToBee = Math.sqrt((Math.pow(400 - bees.get(i).x,2)) + Math.pow(400 - bees.get(i).y,2));
-            if(distanceFromHiveToBee <= (double) ((Hive.size / 2)) + Bee.beeSize){
+            double distanceFromHiveToBee = Math.sqrt((Math.pow(400 - bees.get(i).getX(),2)) + Math.pow(400 - bees.get(i).getY(),2));
+            if(distanceFromHiveToBee <= (double) ((Hive.size / 2)) + Bee.getBeeSize()){
                 bees.get(i).giveNectarToHive(hive);
             }
         }
     }
 
-    public void bee_doing_sex() {
+    private void bee_doing_sex() {
         if(beessAmount<20) {
             babyBee = random.nextInt(2);
             beessAmount += babyBee;
@@ -223,7 +225,7 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    public void bee_eat_or_die() {
+    private void bee_eat_or_die() {
         eating = beessAmount * 2;
         Hive.storedNectar -= eating;
         if(Hive.storedNectar < 0) {
@@ -297,4 +299,5 @@ public class Panel extends JPanel implements ActionListener {
         }
         repaint();
     }
+
 }

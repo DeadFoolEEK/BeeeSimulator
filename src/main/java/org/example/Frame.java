@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Frame extends JFrame{
+
     Frame(){
         Hive hive = new Hive();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,4 +17,5 @@ public class Frame extends JFrame{
         this.pack();
         this.setVisible(true);
     }
+
 }

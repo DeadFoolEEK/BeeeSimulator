@@ -7,8 +7,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class EndOfSimulationFrame extends JFrame implements ActionListener {
+
     JButton submitButton;
     ArrayList<String> simulationResults;
+
     public EndOfSimulationFrame(ArrayList<String> simulationResults){
         //trzeba dodac jakies GUI, bo te wyglada jak zolnierek
 
@@ -38,4 +40,5 @@ public class EndOfSimulationFrame extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
+
 }
