@@ -131,7 +131,9 @@ public class Market extends JPanel implements ActionListener {
         timer.start();
 
     }
-
+    /**
+     * method from ActionListener interface
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         amountOfHoney.setText("Posiadany miod: " + hive.storedNectar);

@@ -12,8 +12,13 @@ import java.awt.event.ItemListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * Settings class, user can adjust settings here
+ */
 public class Settings extends JFrame implements ActionListener {
-
+    /**
+     * Main panel
+     */
     Panel Panel;
     JLabel label1;
     JLabel label2;
@@ -206,7 +211,9 @@ public class Settings extends JFrame implements ActionListener {
 
         this.setVisible(true);
     }
-
+    /**
+     * method from ActionListener interface
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button1) {

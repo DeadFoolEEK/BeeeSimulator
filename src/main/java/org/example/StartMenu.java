@@ -5,15 +5,41 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * StartMenu class, main menu
+ */
 public class StartMenu extends JFrame implements ActionListener {
+    /**
+     * Left panel, empty yellow panel
+     */
     JPanel panel1;
+    /**
+     * Main panel that contains title  (JLabel mainTitle), start simulation button (button1 JButton), simulation setting button (button2 JButton), exit button (button3 JButton)
+     */
     JPanel panel2;
+    /**
+     * Right panel, empty yellow panel
+     */
     JPanel panel3;
+    /**
+     * Title label
+     */
     JLabel mainTitle;
+    /**
+     * Button to start simulation
+     */
     JButton button1;
+    /**
+     * Button to open settings
+     */
     JButton button2;
+    /**
+     * Button to close simulation
+     */
     JButton button3;
-
+    /**
+     * Class constructor
+     */
     StartMenu() {
 
         ImageIcon icon = new ImageIcon("src/main/resources/bee.gif");
@@ -74,9 +100,21 @@ public class StartMenu extends JFrame implements ActionListener {
         panel2.add(button2);
         panel2.add(button3);
 
+        //center window
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+        int frameWidth = this.getSize().width;
+        int frameHeight = this.getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+        this.setLocation(x, y);
+
         this.setVisible(true);
     }
-
+    /**
+     * method from ActionListener interface
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button1) {

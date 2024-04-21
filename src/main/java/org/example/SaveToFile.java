@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ * Save to file class is used to save results of simulation to file (.txt)
+ */
 public class SaveToFile {
-    public SaveToFile(){
-
-    }
+    /**
+     * Save results to file. Creates new file (if file already exists - overwrites) and save results of the simulation. Results are Strings in the ArrayList
+     */
     public void saveResultsToFile(ArrayList<String> dataToSave){
         try {
             String fileNameTemplate = "WynikiSymulacji.txt";
@@ -21,15 +24,5 @@ public class SaveToFile {
             e.printStackTrace();
         }
     }
-//    public void setFileName(String fileName){
-//        this.fileNameTemplate = fileName;
-//    }
-//    public String getFileName(){
-//        return this.fileNameTemplate;
-//    }
 
-//    private boolean checkIfFileExists(String fileName){
-//        File file = new File(fileName);
-//        return file.exists();
-//    }
 }

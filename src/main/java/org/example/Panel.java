@@ -35,9 +35,22 @@ public class Panel extends JPanel implements ActionListener {
     public static int babyBee = 0;
     public static int eating;
     public static int howManyDie;
+
+    /**
+     * Background image of simulation window (forest)
+     */
     public Image backgroundImage;
-    private int daysAmount = 0; // liczy ile dni trwa symulacja
-    public static int maximumDaysAmount = 15; // trzeba to ustawic w settings, uzytkownik powinien moc wybrac ilosc dni trwania symulacji
+
+    /**
+     * Counts how many days simulation lasts
+     */
+    private int daysAmount = 0;
+
+    /**
+     * Determines how many days simulation lasts. User can change it in settings. Default is 15
+     */
+    public static int maximumDaysAmount = 15;
+
     public static int daysLeftToSimulationEnd = 0; // static, poniewaz jest uzywane przez Infopanel
     private int daysPassed; // kopia daysAmount, uzywana do przekazania do zapisu, gdyz daysAmount jest uzywane gdy beesAmount <= 0 w drawNightInfo()
     Frame frame;
@@ -127,7 +140,7 @@ public class Panel extends JPanel implements ActionListener {
                 g.setColor(Color.green);
             }
 
-            g.drawString("Dzien " + Hive.day + " dobiegl konca",200,200);
+            g.drawString("Dzien " + hive.getDay() + " dobiegl konca",200,200);
             g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
             g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 5, 400);
 
@@ -189,6 +202,7 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
     //DO POPRAWY
+
     private void bee_flower_collissionDetector(){
         for(int i = 0; i < flowersAmount;i++){
             for(int j = 0; j < beessAmount ;j++){
@@ -199,6 +213,7 @@ public class Panel extends JPanel implements ActionListener {
             }
         }
     }
+
     //DO POPRAWY
     private void bee_hive_collisionDetector(){
         for(int i = 0; i < beessAmount;i++){//punkt (400,400) to srodek ula

@@ -96,7 +96,7 @@ public class Infopanel extends JPanel implements ActionListener {
         amountOfBeesLabel.setText("Ilosc pszczol: " + hive.amountOfBess);
         amountOfFlowersLabel.setText("Ilosc kwiatow: " + Panel.flowersAmount);
         daysLeftToSimulationLabel.setText("Dni do konca: " + Panel.daysLeftToSimulationEnd);
-        dayInfoLabel.setText("Dzien: " + Hive.day);
+        dayInfoLabel.setText("Dzien: " + hive.getDay());
         if(e.getSource()==marketButton) {
             Market market = new Market(hive);
             market.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));

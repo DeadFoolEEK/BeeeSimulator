@@ -5,12 +5,21 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+/**
+ * EndOfSimulationFrame class, used to show simulation results to user
+ */
 public class EndOfSimulationFrame extends JFrame implements ActionListener {
-
+    /**
+     * Button to submit saving results to file
+     */
     JButton submitButton;
+    /**
+     * ArrayList with simulation results
+     */
     ArrayList<String> simulationResults;
-
+    /**
+     * Class constructor
+     */
     public EndOfSimulationFrame(ArrayList<String> simulationResults){
         //trzeba dodac jakies GUI, bo te wyglada jak zolnierek
 
@@ -31,7 +40,9 @@ public class EndOfSimulationFrame extends JFrame implements ActionListener {
 
         this.setVisible(true);
     }
-
+    /**
+     * method from ActionListener interface
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==submitButton){

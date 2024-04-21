@@ -18,9 +18,9 @@ public class HiveTest {
     @Test
     public void addDayTest(){
         hive = new Hive();
-        assertEquals(0, Hive.day,"No days added, should be 0");
+        assertEquals(0, hive.getDay(),"No days added, should be 0");
         hive.addDay();
-        assertEquals(1, Hive.day,"1 day added, should be 1");
+        assertEquals(1, hive.getDay(),"1 day added, should be 1");
     }
 
     @Test

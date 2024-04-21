@@ -1,3 +1,4 @@
+
 plugins {
     id("java")
     id("application")
@@ -21,4 +22,10 @@ tasks.test {
 
 application{
     mainClass.set("org.example.Main")
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "org.example.Main"
+    }
 }

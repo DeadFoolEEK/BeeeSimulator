@@ -2,6 +2,9 @@ package org.example;
 
 import java.awt.*;
 
+/**
+ * RandomEventGenerator class, responsible for generating random events
+ */
 public class RandomEventGenerator {
     private boolean randomEventHappened;
     private String randomEventResultsInfo;
