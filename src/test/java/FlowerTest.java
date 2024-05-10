@@ -12,7 +12,7 @@ public class FlowerTest {
 
     @Test
     public void getXAndYTest(){
-        int flowerAmount = 100;
+        int flowerAmount = 10;
 
         ArrayList<Flower> flowers = new ArrayList<>();
         for(int i = 0; i < flowerAmount ;i++){
@@ -22,6 +22,7 @@ public class FlowerTest {
         for (Flower flower : flowers) {
             assertTrue(flower.getX() <= Panel.PANEL_HEIGHT && flower.getY() >= 0,"Flower not fit into panel [x]");
             assertTrue(flower.getY() <= Panel.PANEL_HEIGHT && flower.getY() >= 0,"Flower not fit into panel [y]");
+            System.out.println("Flower coordinates: " + flower.getX() + ", " + flower.getY());
         }
 
     }

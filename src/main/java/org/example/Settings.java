@@ -4,11 +4,8 @@ import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.*;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.FlowLayout;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -42,6 +39,7 @@ public class Settings extends JFrame implements ActionListener {
     public static int startBee;
     public static long dayTime;
     public static long nightTime;
+    private static boolean isOpened;
 
     Settings() {
         // Creating window of settings start
@@ -49,6 +47,14 @@ public class Settings extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("Bee Simulator - Settings");
         this.setResizable(false);
+
+        setIsOpenedToTrue();
+        WindowListener listener = new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                setIsOpenedToFalse();
+            }
+        };
+        this.addWindowListener(listener);
 
         // Creating Label
         label1 = new JLabel();
@@ -211,6 +217,19 @@ public class Settings extends JFrame implements ActionListener {
 
         this.setVisible(true);
     }
+
+    private void setIsOpenedToTrue(){
+        isOpened = true;
+    }
+
+    private void setIsOpenedToFalse(){
+        isOpened = false;
+    }
+
+    public static boolean getIsOpened(){
+        return isOpened;
+    }
+
     /**
      * method from ActionListener interface
      */

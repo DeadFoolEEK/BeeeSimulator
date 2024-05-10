@@ -2,8 +2,7 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Random;
 
 
@@ -25,7 +24,6 @@ public class Market extends JPanel implements ActionListener {
     public static int beePrice;
     Panel Panel;
     private boolean isNightChanged = false;
-
 
     public Market(Hive hive){
 
@@ -212,5 +210,4 @@ public class Market extends JPanel implements ActionListener {
     public static void updateBeePriceForBots(){
         beePrice = random.nextInt(30)+20;
     }
-
 }

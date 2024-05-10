@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bee simulator - manual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main">
+        <div id="title">
+            <h1>Symulator pszczół - instrukcja</h1>
+        </div>
+        <div id="mainInfo">
+            <h2>Głowne założenia i cele symulacji</h2>
+            <p>Celem symulacji jest ukazanie życia pszczół w hodowli ludzkiej. Pszczoły każdego dnia wylatują z ula w celu pozyskania nektaru z kwiatka. Pozyskany nektar musi zostać przetransportowany do ula, tylko wtedy pszczoła może poszukać kolejnego kwiatka. Oczywiście każda pszczoła posiada maksymalny udźwig, tak samo jak każdy kwiat posiada określoną ilość nektaru. Pszczoły to owady dzienne, w związku z tym w nocy odpoczywają. To właśnie o tej porze dnia mogą się rozmnożyć i obiązkowo zjeść nektar, w przeciwnym razie zdechną. Życie pszczół jest urozmaicone poprzez wydarzenia losowe, pozytywne, jak i zarówno negatywne. Na szczęście nie są skazane na samotność. Jesteś tutaj by im pomóc przeyż w godnych warunkach bez obawy o głód albo zamienić ich dotychczasowe życie w biznes. Wybór zależy od Ciebie!</p>
+        </div>
+        <div id="settingsInfo">
+            <h2>Ustawienia</h2>
+        </div>
+        <img src="img/settings.png" style="flex-basis: auto;">
+        <div id="settings-table">
+            <table>
+                <tr>
+                    <td>
+                        <img src="img/settings_bee_amount.png">
+                    </td>
+                    <td>Ilość pszczół na start. Mimo iż jest do wyboru 0, nie da się tego zrobić</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/settings_day_time.png">
+                    </td>
+                    <td>Czas trawania dnia w sekundach. W trakcie dnia pszczoły zbierają netkar z kwiatków</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/settings_night_time.png">
+                    </td>
+                    <td>Czas trwania nocy w sekundach. W trakcie nocy pszczoły odpoczywają, jedzą, rozmnażają się. Również wtedy można wykonać akcję, np. kupić pszczołe, czy kwiatek. Dodatkowa istnieje możliwość zajścia wydarzenia losowego</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/settings_simulattion_time.png">
+                    </td>
+                    <td>Ile ma trwać symulacja</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/settings_random_events.png">
+                    </td>
+                    <td>Czy chcesz aby twoją symulację urozmaiciły wydarzenia losowe?</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/settings_who_plays.png">
+                    </td>
+                    <td>Wybierz kto ma sterować. 1 - Ty, 2- Bot Peter, 3 - Bot Bruno. Chodzą pogłoski, że mogą być do kogoś podobni</td>
+                </tr>
+            </table>
+        </div>
+        <div id="basic-elements-on-map">
+            <h2>Elementy na mapie</h2>
+            <table>
+                <tr>
+                    <td>
+                        <img src="img/smallbee.png">
+                    </td>
+                    <td>Pszczoła</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/flower.png">
+                    </td>
+                    <td>Kwiat z nektarem</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/blackflower.png">
+                    </td>
+                    <td>Kwiat bez nektaru</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img src="img/hive.png">
+                    </td>
+                    <td>Ul</td>
+                </tr>
+            </table>
+        </div>
+        <div id="ways-to-play">
+            <h2>Sposoby przeprowadzenia symulacji</h2>
+            <p>Jak już wiesz, istnieją 3 opcje wyboru sterowania. Pierwsza zakłada, że to własnie Ty staniesz za sterami koncernu pszczelego. Będziesz musiał mądrze zarządzać ilościa pszczoł i kwiatków, które to będziesz mógł kupić na rynku. Pieniądze będziesz pozyskiwał ze sprzedaży nektaru zgromadzonego przez pszczoły. Pamiętaj by nie kupywać za dużo pszczoł, bez wcześniejszego zakupu kwiatków, gdyż mogą szybko umrzeć z głodu, a tego przcież byśmy nie chcieli.</p>
+            <p>Druga opcja to Bot Peter. Ta istota nie zna umiaru w inwestycjach, co ciekawe szczególnie lubi inwestować w pszczoły. Bardzo mało oszczędza i lubi sprzedawać wiele nektaru. Chodzą pogłoski, że matematyka to nie jest jeko mocna strona, dlatego tyle wydaje</p>
+            <p>Trzecia opcja to Bot Bruno. Zdecydowanie najlepsza opcja dla osób chcących zobaczyć poprawny przebieg programu. Nie inwestuje zbyt dużo, lubi oszczędzać i nie wiadomo czemu lubi kwiatki.</p>
+        </div>
+        <div id="random-elements">
+            <h2>Wydarzenia losowe</h2>
+            <p>Żeby nie było zbyt monotonnie na ratunek przychodzą wydarzenia losowe. Bywają zarówno dobre jak i zarówno złe. Jak to bywa w lesie pojawiają się tylko i wyłącznie w noc. Matematycy powiadają, że szansa na zaistnieje jakiegoś wynosi 20%</p>
+        </div>
+        <div id="bess-behaviour">
+            <h2>Pszczele zachowania</h2>
+            <p>Pszczoły latają do wolnego kwiatka w trakcie dnia. Wybierają sobie konkretny kwiatek i wytrwale do niego zmierzają. Po pobraniu nektaru wracają do ula i jeżeli jakiś kwiatek ma coś w sobie to pszczoła chętnie to zabierze. Jeżeli nie ma już wolnego kwiatka pszczola zacznie latać sobie bez celu</p>
+            <p>Pszczoła jak każde inne zwierze musi jeść. Nocą spożyw zebrany nektar. W przypadku niewystarczajęcej ilości nektaru umiara.</p>
+            <p>Pszczoła również nocą sie rozmnaża. Jeżeli ilość nektaru spełnia wymagania może zajść do narodzin nowej pszczoły</p>
+        </div>
+        <div id="right-panel-info">
+            <h2>Panel po prawej stronie</h2>
+        </div>
+        <img src="img/lewy_panel.png">
+        <div id="market-info">
+            <h2>Rynek</h2>
+        </div>
+        <img src="img/market.png">
+    </div>
+</body>
+</html>

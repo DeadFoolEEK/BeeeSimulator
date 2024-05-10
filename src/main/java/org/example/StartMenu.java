@@ -38,6 +38,10 @@ public class StartMenu extends JFrame implements ActionListener {
      */
     JButton button3;
     /**
+     * Button to open readme (manual)
+     */
+    JButton readMeButton;
+    /**
      * Class constructor
      */
     StartMenu() {
@@ -84,6 +88,12 @@ public class StartMenu extends JFrame implements ActionListener {
         button2.setText("Ustawienia symulacji");
         button2.addActionListener(this);
 
+        readMeButton = new JButton();
+        readMeButton.setPreferredSize(new Dimension(300,60));
+        readMeButton.setFocusable(false);
+        readMeButton.setText("Instrukcja");
+        readMeButton.addActionListener(this);
+
         button3 = new JButton();
         button3.setPreferredSize(new Dimension(300,60));
         button3.setFocusable(false);
@@ -98,6 +108,7 @@ public class StartMenu extends JFrame implements ActionListener {
         panel2.add(mainTitle);
         panel2.add(button1);
         panel2.add(button2);
+        panel2.add(readMeButton);
         panel2.add(button3);
 
         //center window
@@ -122,10 +133,15 @@ public class StartMenu extends JFrame implements ActionListener {
             new Frame();
         }
         if(e.getSource()==button2) {
-            new Settings();
+            if(!Settings.getIsOpened()){
+                new Settings();
+            }
         }
         if(e.getSource()==button3) {
             System.exit(0);
+        }
+        if(e.getSource()==readMeButton){
+            new ReadMeLauncher();
         }
     }
 }

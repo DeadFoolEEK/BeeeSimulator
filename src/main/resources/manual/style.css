@@ -1,0 +1,26 @@
+body {
+    background-image: url("img/field2.jpg");
+    background-color: #cccccc;
+    color: white;
+    font-family: 'Comic Sans MS', cursive;
+   }
+
+#main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    width: 50%;
+    background-color: rgb(255,165,0,0.75);
+    padding: 10px;
+
+}
+
+#title{
+    
+}
+
+#mainInfo{
+    
+}

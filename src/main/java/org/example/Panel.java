@@ -201,8 +201,8 @@ public class Panel extends JPanel implements ActionListener {
             drawNightInfo(g);
         }
     }
-    //DO POPRAWY
 
+    //DO POPRAWY
     private void bee_flower_collissionDetector(){
         for(int i = 0; i < flowersAmount;i++){
             for(int j = 0; j < beessAmount ;j++){

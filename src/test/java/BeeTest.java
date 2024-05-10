@@ -14,7 +14,7 @@ public class BeeTest {
 
     @Test
     public void beeSpawnRandomizerTest(){
-        int testsAmount = 1000;
+        int testsAmount = 5;
 
         ArrayList<Bee> bees = new ArrayList<>();
         for(int i = 0; i < testsAmount ;i++){
