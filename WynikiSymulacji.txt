@@ -1,2 +1,2 @@
 Symulacja trwała 15 dni
-Ilosc pszczol 192
+Ilosc pszczol 222
