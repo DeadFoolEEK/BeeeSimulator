@@ -25,6 +25,7 @@ public class Panel extends JPanel implements ActionListener {
     ArrayList<Bee> bees;
     public static int flowersAmount = 60;
     public static int beessAmount = 5;
+    private int startingBeesAmount;
     public static boolean isNight;
     long time_start;
     static long timeOfNight = 5000;
@@ -68,6 +69,7 @@ public class Panel extends JPanel implements ActionListener {
         this.hive = hive;
         flowers = new ArrayList<>();
         bees = new ArrayList<>();
+        startingBeesAmount = beessAmount;
         hive.setAmountOfBees(beessAmount);
         generateBot();
         beginDay();
@@ -140,28 +142,28 @@ public class Panel extends JPanel implements ActionListener {
                 g.setColor(Color.green);
             }
 
-            g.drawString("Dzien " + hive.getDay() + " dobiegl konca",200,200);
-            g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,300);
-            g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 5, 400);
+            g.drawString("Dzien " + hive.getDay() + " dobiegl konca",220,230);
+            g.drawString("Pszczoly zebraly dzisiaj " + hive.todayStoredNectar + " nektaru",75,330);
+            g.drawString("W nocy urodzilo sie " + babyBee + " pszczol", 150, 430);
 
             if(Hive.storedNectar > 0) {
-                g.drawString("Wszystkie pszczoly przezyly", 100, 500);
+                g.drawString("Wszystkie pszczoly przezyly", 150, 530);
             }
 
             else if (Hive.storedNectar <=0){
-                g.drawString("Z glodu umarlo " + howManyDie + " pszczol", 100, 500 );
+                g.drawString("Z glodu umarlo " + howManyDie + " pszczol", 170, 530 );
             }
 
             if(botPlay){
-                g.drawString("Bot kupil " + bot.getAmountOfBoughtBees() + " pszczol",100,600);
-                g.drawString("Bot kupil " + bot.getAmountOfBoughtFlowers() + " kwiatkow",100 ,700);
+                g.drawString("Bot kupil " + bot.getAmountOfBoughtBees() + " pszczol",225,630);
+                g.drawString("Bot kupil " + bot.getAmountOfBoughtFlowers() + " kwiatkow",210 ,700);
             }
 
         }
-        else if(beessAmount <= 0) {
-            g.drawString("Zadna pszczola nie przezyla, koniec symulacji",5,200);
-            // timeOfNight = 100000;
-            daysAmount = maximumDaysAmount; //daysAmount traci swa wartosc, ale istnieje kopia daysPassed
+        else{
+            g.drawString("Koniec symulacji",220,230);
+            g.drawString("Zadna pszczola nie przezyla!",75,330);
+            daysAmount = maximumDaysAmount;
         }
 
     }
@@ -202,7 +204,6 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
-    //DO POPRAWY
     private void bee_flower_collissionDetector(){
         for(int i = 0; i < flowersAmount;i++){
             for(int j = 0; j < beessAmount ;j++){
@@ -213,8 +214,7 @@ public class Panel extends JPanel implements ActionListener {
             }
         }
     }
-
-    //DO POPRAWY
+    
     private void bee_hive_collisionDetector(){
         for(int i = 0; i < beessAmount;i++){//punkt (400,400) to srodek ula
             double distanceFromHiveToBee = Math.sqrt((Math.pow(400 - bees.get(i).getX(),2)) + Math.pow(400 - bees.get(i).getY(),2));
@@ -269,15 +269,14 @@ public class Panel extends JPanel implements ActionListener {
     private ArrayList<String> setSimulationResults(){
         ArrayList<String> simulationResults = new ArrayList<>();
 
-        //trzeba dodac jakies wyniki do zapisu, te sa robocze
-        simulationResults.add("Symulacja trwała " + (daysPassed - 1) + " dni");
-        simulationResults.add("Ilosc pszczol " + beessAmount);
+        simulationResults.add("Symulacja trwala " + (daysPassed - 1) + " dni");
+        simulationResults.add("Ilosc pszczol na koncu " + beessAmount);
 
         return simulationResults;
     }
 
     private void endOfSimulationProcedure(){
-        new EndOfSimulationFrame(setSimulationResults());
+        new EndOfSimulationFrame(setSimulationResults(),startingBeesAmount,beessAmount);
         frame.dispose();
         timer.stop();
     }

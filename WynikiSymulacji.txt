@@ -1,2 +1,6 @@
-Symulacja trwała 15 dni
-Ilosc pszczol 222
+Symulacja trwala 15 dni
+Ilosc pszczol na koncu 169
+Ilosc pszczol na poczatku: 10
+Zysk za pszczoly: 4770$
+Zysk ze sprzedazy nektaru na koncu: 115.5$
+Zarobiles/as 5252.5$

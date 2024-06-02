@@ -51,7 +51,7 @@ public class StartMenu extends JFrame implements ActionListener {
         this.setSize(850, 800);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Bee Simulator");
-        this.setResizable(true);
+        this.setResizable(false);
 
         // Creating panels
         panel1 = new JPanel();
