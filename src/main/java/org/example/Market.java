@@ -5,26 +5,77 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
 
-
+/**
+ * Market class, responsible for market, can be accessed only if user does simulation
+ */
 public class Market extends JPanel implements ActionListener {
-
+    /**
+     * JFrame that contains every GUI element of market
+     */
     JFrame frame;
+    /**
+     * JLabel that contains amount of honey (nectar) user (or bot) currently has
+     */
     JLabel amountOfHoney;
+    /**
+     * JLabel that contains amount of money user (or bot) currently has
+     */
     JLabel moneyLabel;
+    /**
+     * JLabel that contains current bee price
+     */
     JLabel beePriceLabel;
+    /**
+     * JButton for selling nectar
+     */
     JButton button1;
+    /**
+     * JButton for buying bees
+     */
     JButton button2;
+    /**
+     * JButton for buying flowers
+     */
     JButton button3;
+    /**
+     * Hive class
+     */
     Hive hive;
+    /**
+     * Timer refreshes prices
+     */
     Timer timer;
+    /**
+     * Basic honey price
+     */
     static double value = 3.50;
+    /**
+     * JTextField for typing nectar amount to sell
+     */
     JTextField honeyAmountField;
+    /**
+     * JTextField for typing bees amount to buy
+     */
     JTextField beeAmountField;
+    /**
+     * Randomizer used to simulate market bee price
+     */
     static Random random = new Random();
+    /**
+     * Price for 1 bee
+     */
     public static int beePrice;
+    /**
+     * Panel class
+     */
     Panel Panel;
+    /**
+     * Variable determines if night is changed
+     */
     private boolean isNightChanged = false;
-
+    /**
+     * Market class constructor
+     */
     public Market(Hive hive){
 
         this.hive = hive;
@@ -199,14 +250,18 @@ public class Market extends JPanel implements ActionListener {
             isNightChanged = false;
         }
     }
-
+    /**
+     * Method for updating bee price
+     */
     public void updateBeePrice(int newPrice) {
         beePrice = newPrice;
         beePriceLabel.setText("Cena za pszczole: " + beePrice + "$");
         button2.setText("Zakup pszczole, aktualna cena: " + beePrice + "$");
 
     }
-
+    /**
+     * Method for updating bee price for bots
+     */
     public static void updateBeePriceForBots(){
         beePrice = random.nextInt(30)+20;
     }

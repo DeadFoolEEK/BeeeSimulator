@@ -3,8 +3,13 @@ package org.example;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-
+/**
+ * ReadMeLauncher class, used to open readMe (html file)
+ */
 public class ReadMeLauncher {
+    /**
+     * ReadMeLauncher class constructor
+     */
     ReadMeLauncher(){
         String filePath = "src/main/resources/manual/index.html";
 

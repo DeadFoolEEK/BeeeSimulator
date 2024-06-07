@@ -17,30 +17,102 @@ public class Settings extends JFrame implements ActionListener {
      * Main panel
      */
     Panel Panel;
+    /**
+     * Declare label1
+     */
     JLabel label1;
+    /**
+     * Declare label2
+     */
     JLabel label2;
+    /**
+     * Declare label3
+     */
     JLabel label3;
+    /**
+     * Declare label4
+     */
     JLabel label4;
+    /**
+     * Declare days amount label
+     */
     JLabel daysAmountLabel;
+    /**
+     * Declare main panel
+     */
     JPanel panel;
+    /**
+     * Declare panel used for user and bots
+     */
     JPanel userAndBotsPanel;
+    /**
+     * Declare button1
+     */
     JButton button1;
+    /**
+     * Declare slider1
+     */
     JSlider slider1;
+    /**
+     * Declare slider2
+     */
     JSlider slider2;
+    /**
+     * Declare slider3
+     */
     JSlider slider3;
+    /**
+     * Declare slider4
+     */
     JSlider slider4;
+    /**
+     * Declare bot icon for bot Peter
+     */
     ImageIcon botPeterIcon;
+    /**
+     * Declare bot icon for bot Bruno
+     */
     ImageIcon botBrunoIcon;
+    /**
+     * Declare user radio icon
+     */
     ImageIcon userRadioIcon;
+    /**
+     * Declare user radio Button
+     */
     JRadioButton userRadioButton;
+    /**
+     * Declare bot Peter radio button
+     */
     JRadioButton botPeterButton;
+    /**
+     * Declare bot Bruno radio button
+     */
     JRadioButton botBrunoButton;
+    /**
+     * Declare checkbox for random event generator
+     */
     JCheckBox randomEventGeneratorCheckBox;
+    /**
+     * Start bee integer
+     */
     public static int startBee;
+    /**
+     * Day time long
+     */
     public static long dayTime;
+    /**
+     * Night time long
+     */
     public static long nightTime;
+    /**
+     * Check if settings is already opened or not. Prevents from opening multiple settings
+     */
     private static boolean isOpened;
 
+    /**
+     * Constructor settings. Creates window of settings and all visual things and settings that are in.
+     */
     Settings() {
         // Creating window of settings start
         this.setSize(350, 600);
@@ -104,7 +176,7 @@ public class Settings extends JFrame implements ActionListener {
         slider1.setValue(5);
         slider1.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                    startBee = slider1.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
+                startBee = slider1.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
             }
         });
 
@@ -116,8 +188,8 @@ public class Settings extends JFrame implements ActionListener {
         slider2.setValue(10);
         slider2.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                    dayTime = slider2.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
-                    dayTime = dayTime * 1000; // zmiana na milisekundy
+                dayTime = slider2.getValue(); // Aktualizacja zmiennej przy zmianie wartości suwaka
+                dayTime = dayTime * 1000; // zmiana na milisekundy
             }
         });
 
@@ -218,14 +290,23 @@ public class Settings extends JFrame implements ActionListener {
         this.setVisible(true);
     }
 
+    /**
+     * Sets isopened to true
+     */
     private void setIsOpenedToTrue(){
         isOpened = true;
     }
 
+    /**
+     *  Sets isopened to false
+     */
     private void setIsOpenedToFalse(){
         isOpened = false;
     }
 
+    /**
+     * Returns boolean isopened
+     */
     public static boolean getIsOpened(){
         return isOpened;
     }

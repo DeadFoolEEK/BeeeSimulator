@@ -7,7 +7,7 @@ import java.awt.*;
  */
 public class Frame extends JFrame{
     /**
-     * Class constructor
+     * Frame Class constructor
      */
     Frame(){
         Hive hive = new Hive();
@@ -17,7 +17,7 @@ public class Frame extends JFrame{
         this.setTitle("Bee Simulator");
         this.setLayout(new FlowLayout());
         this.add(new Panel(hive,this), BorderLayout.CENTER);
-        this.add(new Infopanel(hive),BorderLayout.EAST);
+        this.add(new InfoPanel(hive),BorderLayout.EAST);
         this.pack();
 
         //center window

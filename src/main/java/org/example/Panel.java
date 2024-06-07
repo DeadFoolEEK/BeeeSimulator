@@ -10,31 +10,103 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-
+/**
+ * Panel class, main simulation class
+ */
 public class Panel extends JPanel implements ActionListener {
 
+
+    /**
+     * Sets panel width.
+     */
     public final static int PANEL_WIDTH = 800;
+    /**
+     * Sets panel height.
+     */
     public final static int PANEL_HEIGHT = 800;
+    /**
+     * Declare bot
+     */
     Bot bot;
+    /**
+     * If true bot will take over simulation
+     */
     static public boolean botPlay;
+    /**
+     * Gets bot name. It can be Peter or Bruno
+     */
     static public String botName;
+    /**
+     * Checks if bot did something
+     */
     static public boolean botDidAction;
+    /**
+     * Declare timer
+     */
     Timer timer;
+    /**
+     * Declare hive
+     */
     Hive hive;
+    /**
+     * Creates arraylist of flowers
+     */
     ArrayList<Flower> flowers;
+    /**
+     * Creates arraylist of bees
+     */
     ArrayList<Bee> bees;
+    /**
+     * Sets defauly flowersamount
+     */
     public static int flowersAmount = 60;
+    /**
+     * Sets defauly bees amount
+     */
     public static int beessAmount = 5;
+    /**
+     * Declare starting bees amount
+     */
     private int startingBeesAmount;
+    /**
+     * Checks if there is night.
+     */
     public static boolean isNight;
+    /**
+     * Declare time start
+     */
     long time_start;
+    /**
+     * Sets default time of night
+     */
     static long timeOfNight = 5000;
+    /**
+     * Sets default time of day
+     */
     static long timeOfDay = 7000;
+    /**
+     * Sets nightstared to false
+     */
     boolean nightStared = false;
+    /**
+     * Declare selected flowe
+     */
     Flower selectedFlower;
+    /**
+     * Creates random
+     */
     Random random = new Random();
+    /**
+     * Initalize baby bees
+     */
     public static int babyBee = 0;
+    /**
+     * Declare eating
+     */
     public static int eating;
+    /**
+     * Declare how many bees died
+     */
     public static int howManyDie;
 
     /**
@@ -52,12 +124,22 @@ public class Panel extends JPanel implements ActionListener {
      */
     public static int maximumDaysAmount = 15;
 
+    /**
+     * Determines how many days left to end simulation.
+     */
     public static int daysLeftToSimulationEnd = 0; // static, poniewaz jest uzywane przez Infopanel
+
+    /**
+     * Determines how many days passed already through simulation.
+     */
     private int daysPassed; // kopia daysAmount, uzywana do przekazania do zapisu, gdyz daysAmount jest uzywane gdy beesAmount <= 0 w drawNightInfo()
     Frame frame;
     RandomEventGenerator randomEventGenerator;
     public static boolean randomEventsActived = false;
 
+    /**
+     * Panel constructor. Creates array lists for flowers and bees. Sets size for panel and starting parametres of simulation like bees amount.
+     */
     Panel(Hive hive,Frame frame){
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
         this.frame = frame;
@@ -80,6 +162,9 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Sets the appropriate bot to work in simulation.
+     */
     private void generateBot(){
         if(botPlay){
             if(botName.equals("Peter")){
@@ -92,18 +177,27 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Spawn flowers in panel.
+     */
     private void spawnFlowers(){
         for(int i = 0; i < flowersAmount;i++){
             flowers.add(new Flower());
         }
     }
 
+    /**
+     * Spawn bees in panel.
+     */
     private void spawnBees(){
         for(int i = 0; i < beessAmount ;i++){
             bees.add(new Bee());
         }
     }
 
+    /**
+     * Starts the day. Activates function of spawning flowers and bees. Also increase days passed and days amount.
+     */
     private void beginDay(){
         // this.setBackground(Color.green);
         daysAmount++;
@@ -119,6 +213,9 @@ public class Panel extends JPanel implements ActionListener {
         randomEventGenerator.setRandomEventHappenedToFalse();
         time_start = System.currentTimeMillis();
     }
+    /**
+     * Starts the night.
+     */
     private void beginNight(){
         if(!nightStared){
             this.setBackground(Color.BLACK);
@@ -132,6 +229,9 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Shows the total summary of the day. How many bees were born, what day it is, how much nectar the bees collected, did all the bees survive, how many bees died of hunger, information about bots tactical movements.
+     */
     public void drawNightInfo(Graphics g){
         g.setColor(Color.green);
         g.setFont(new Font("Ink Free",Font.BOLD,40));
@@ -167,7 +267,9 @@ public class Panel extends JPanel implements ActionListener {
         }
 
     }
-
+    /**
+     * Gives the coordinates to the flower
+     */
     private Flower selectFlower(){
         for(int i = 0; i < flowersAmount ;i++){
             if(flowers.get(i).getNectarAmount() != 0 && !flowers.get(i).getIsOccupiedByBee()){
@@ -177,6 +279,9 @@ public class Panel extends JPanel implements ActionListener {
         return null;
     }
 
+    /**
+     * He gives the flower to the bee. Thanks to this, the bee knows where to fly and to which flower
+     */
     private void beeFlowerSelector(){
         for (Bee bee : bees) {
             if (!bee.getHasSelectedFlower()) {
@@ -188,6 +293,9 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * It draws graphics of bees, a hive, flowers and night information
+     */
     public void paint(Graphics g){
         super.paint(g);
         if(!isNight){
@@ -204,6 +312,9 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * It checks whether a bee - flower or flower - bee collision occurred
+     */
     private void bee_flower_collissionDetector(){
         for(int i = 0; i < flowersAmount;i++){
             for(int j = 0; j < beessAmount ;j++){
@@ -214,7 +325,10 @@ public class Panel extends JPanel implements ActionListener {
             }
         }
     }
-    
+
+    /**
+     * It checks whether a bee - hive or hive - bee collision occurred
+     */
     private void bee_hive_collisionDetector(){
         for(int i = 0; i < beessAmount;i++){//punkt (400,400) to srodek ula
             double distanceFromHiveToBee = Math.sqrt((Math.pow(400 - bees.get(i).getX(),2)) + Math.pow(400 - bees.get(i).getY(),2));
@@ -224,6 +338,9 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * It makes bee reproduction
+     */
     private void bee_doing_sex() {
         if(beessAmount<20) {
             babyBee = random.nextInt(2);
@@ -240,18 +357,24 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Checks if bee have something to it. If no it dies.
+     */
     private void bee_eat_or_die() {
         eating = beessAmount * 2;
         Hive.storedNectar -= eating;
         if(Hive.storedNectar < 0) {
-           // System.out.println(Hive.storedNectar);
+            // System.out.println(Hive.storedNectar);
             howManyDie = Hive.storedNectar * (-1) / 2;
-          //  System.out.println(howManyDie);
+            //  System.out.println(howManyDie);
             beessAmount -= howManyDie;
             Hive.storedNectar = 0;
         }
     }
 
+    /**
+     * Painting background of day and night.
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (isNight) {
@@ -262,10 +385,16 @@ public class Panel extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Function that decrease days of simulation .
+     */
     private void updateDaysAmountToSimulationEnd(){
         daysLeftToSimulationEnd--;
     }
 
+    /**
+     * Arraylist of simulation results.
+     */
     private ArrayList<String> setSimulationResults(){
         ArrayList<String> simulationResults = new ArrayList<>();
 
@@ -275,12 +404,17 @@ public class Panel extends JPanel implements ActionListener {
         return simulationResults;
     }
 
+    /**
+     * Procedure of how should ending look like.
+     */
     private void endOfSimulationProcedure(){
         new EndOfSimulationFrame(setSimulationResults(),startingBeesAmount,beessAmount);
         frame.dispose();
         timer.stop();
     }
-
+    /**
+     * method from ActionListener interface
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(maximumDaysAmount >= daysAmount){

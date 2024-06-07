@@ -1,13 +1,21 @@
+package unitTests;
 
 import org.example.RandomEventGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for RandomEventGenerator Class
+ */
 public class RandomEventGeneratorTest {
-
+    /**
+     * RandomEventGenerator class
+     */
     RandomEventGenerator randomEventGenerator;
-
+    /**
+     * Unit test for setRandomEventHappenedToFalseT method
+     */
     @Test
     public void setRandomEventHappenedToFalseTestWhenActivated(){
         randomEventGenerator = new RandomEventGenerator(true);
@@ -15,7 +23,9 @@ public class RandomEventGeneratorTest {
         assertFalse(randomEventGenerator.getRandomEventHappened());
     }
 
-    //test if total percentage of event is correct
+    /**
+     * Unit test that checks if random events chance of happen is correct
+     */
     @Test
     public void generateRandomEventTestWhenActivated(){
         randomEventGenerator = new RandomEventGenerator(true);
@@ -35,7 +45,9 @@ public class RandomEventGeneratorTest {
         assertEquals(totalChangeOfEventsHappening, (double) eventsHappened /testsAmount,delta);
         System.out.println("[generateRandomEventTestWhenActivated] % of event happened " + (double)eventsHappened/testsAmount);
      }
-
+    /**
+     * Unit test for setRandomEventHappenedToFalseT method
+     */
     @Test
     public void generateRandomEventTestWhenDisctivated(){
         randomEventGenerator = new RandomEventGenerator(false);

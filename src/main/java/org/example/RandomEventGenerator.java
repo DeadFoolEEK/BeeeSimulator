@@ -6,16 +6,33 @@ import java.awt.*;
  * RandomEventGenerator class, responsible for generating random events
  */
 public class RandomEventGenerator {
+    /**
+     * Determines if random event happened
+     */
     private boolean randomEventHappened;
+    /**
+     * String info about random event
+     */
     private String randomEventResultsInfo;
-    private final boolean randomEventsActived;
+    /**
+     * Checks if random events are activated, user can set this in settings
+     */
+    private final boolean randomEventsActivated;
+    /**
+     * Unique number for random event
+     */
     int number;
+    /**
+     * RandomEventGenerator class constructor
+     */
     public RandomEventGenerator(boolean randomEventsAcitved){
-        this.randomEventsActived = randomEventsAcitved;
+        this.randomEventsActivated = randomEventsAcitved;
     }
-
+    /**
+     * Method that generates random events, randomize number and chose random event (every random has 5% of happen)
+     */
     public void generateRandomEvent(){
-        if(randomEventsActived){
+        if(randomEventsActivated){
             int min = 1;
             int max = 100;
             int randomNumber = getRandomNumber(min, max);
@@ -38,19 +55,27 @@ public class RandomEventGenerator {
             }
         }
     }
-
+    /**
+     * Random number generator, used in generateRandomEvent method
+     */
     private int getRandomNumber(int min, int max){
         return (int) ((Math.random() * (max - min)) + min);
     }
-
+    /**
+     * Returns private variable randomEventHappened
+     */
     public boolean getRandomEventHappened(){
         return randomEventHappened;
     }
-
+    /**
+     * Sets randomEventHappened variable to false
+     */
     public void setRandomEventHappenedToFalse(){
         randomEventHappened = false;
     }
-
+    /**
+     * Method that draws random event info during night (if random event happened)
+     */
     public void drawRandomEventResult(Graphics g){
         g.setColor(Color.red);
         g.setFont(new Font("Ink Free",Font.BOLD,40));
@@ -66,9 +91,9 @@ public class RandomEventGenerator {
 
     }
 
-    //Narazie wartosci w random eventach ponizej sa ustawione na sztywno, zawsze odejmuje albo dodaje polowe kwiatkow, nektaru, czy pszczol
-
-    //Kubus Puchatek kradnie miod/nektar
+    /**
+     * Negative random event, multiply amount of nectar by 0.5. 5% chance of happen
+     */
     private void winnieThePoohStoleNectar(){
         number = 1;
         int nectarAmount = Hive.storedNectar;
@@ -84,7 +109,9 @@ public class RandomEventGenerator {
         randomEventResultsInfo = "Kubus Puchatek zjadl " + howMuchNectarWasEaten + " miodu";
     }
 
-    //Tygrysek zabija pszczoly
+    /**
+     * Negative random event, multiply amount of bees by 0.5. 5% chance of happen
+     */
     private void tiggerKilledBees(){
         number = 2;
         int beesAmount = Panel.beessAmount;
@@ -100,7 +127,9 @@ public class RandomEventGenerator {
         randomEventResultsInfo = "Tygyrsek zabil " + howMuchBessWerekilled + " pszczol";
     }
 
-    //Prosiaczek niszczy kwiatki
+    /**
+     * Negative random event, multiply amount of flowers by 0.5. 5% chance of happen
+     */
     private void pigletDestroyedFlowers(){
         number = 3;
         int flowersAmount = Panel.flowersAmount;
@@ -116,7 +145,9 @@ public class RandomEventGenerator {
         randomEventResultsInfo = "Prosiaczek zniszczyl " + howMuchFlowersWereDestroyed + " kwiatkow";
     }
 
-    //Krzys sadzi kwiatki
+    /**
+     * Positive random event, multiply amount of flowers by 1.5. 5% chance of happen
+     */
     private void christopherPlantsFlowers(){
         number = 4;
         Panel.flowersAmount += Panel.flowersAmount/2;

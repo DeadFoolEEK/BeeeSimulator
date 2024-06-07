@@ -29,7 +29,13 @@ public class Hive {
      * Nectar stored today
      */
     public int todayStoredNectar = 0;
+    /**
+     * Current amount of bees
+     */
     public int amountOfBess;
+    /**
+     * Current day
+     */
     private int day;
     /**
      * Money amount, money is acquired by selling nectar. It can be spent to buy flowers or bees
@@ -39,7 +45,9 @@ public class Hive {
      * Flower price, changes after every purchase of flower
      */
     public static int flowerPrice = 1;
-
+    /**
+     * Method to paint hive on screen
+     */
     public void paintHive(Graphics g){
         try {
             BufferedImage hiveImage = ImageIO.read(new File("src/main/resources/hive.png")); 
@@ -48,23 +56,33 @@ public class Hive {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Method to set amount of bees to given number, used in Panel and Hive
+     */
     public void setAmountOfBees(int number){
         amountOfBess = number;
     }
-
+    /**
+     * Method to set storedNectar to given number, used in Panel (during night) and Hive
+     */
     public void addTodaysNectarToTotalNectar(){
         storedNectar += todayStoredNectar;
     }
-
+    /**
+     * Method to clear todayStoredNectar variable (set todayStoredNectar to 0)
+     */
     public void clearTodaysStoreNectar(){
         todayStoredNectar = 0;
     }
-
+    /**
+     * Method that increments day variable
+     */
     public void addDay(){
         day++;
     }
-
+    /**
+     * Method that returns day variable
+     */
     public int getDay(){
         return day;
     }

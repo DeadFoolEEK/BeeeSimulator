@@ -4,25 +4,70 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-public class Infopanel extends JPanel implements ActionListener {
-
+/**
+ * InfoPanel class is visible in right the side of simulation screen
+ */
+public class InfoPanel extends JPanel implements ActionListener {
+    /**
+     * InfoPanel width
+     */
     public final static int PANEL_WIDTH = 300;
+    /**
+     * InfoPanel height
+     */
     public final static int PANEL_HEIGHT = 800;
+    /**
+     * Hive class
+     */
     Hive hive;
+    /**
+     * Timer that refreshes visible variables values
+     */
     Timer timer;
+    /**
+     * JLabel with "Informacje word (eng. "Information")
+     */
     JLabel infoLabel;
+    /**
+     * JLabel that informs about nectar amount
+     */
     JLabel amountOfNectarLabel;
+    /**
+     * JLabel that informs about bees amount
+     */
     JLabel amountOfBeesLabel;
+    /**
+     * JLabel that shows current day number
+     */
     JLabel dayInfoLabel;
+    /**
+     * JLabel that shows chosen bot name
+     */
     JLabel botNameInfoLabel;
+    /**
+     * JButton that opens market (Market class)
+     */
     JButton marketButton;
+    /**
+     * JLabel that informs about flowers amount
+     */
     JLabel amountOfFlowersLabel;
+    /**
+     * JLabel that informs about money that bot has
+     */
     JLabel botMoneyLabel;
+    /**
+     * JLabel that informs about amount of days to simulation end
+     */
     JLabel daysLeftToSimulationLabel;
+    /**
+     * Panel class
+     */
     Panel Panel;
-
-    Infopanel(Hive hive){
+    /**
+     * InfoPanel class constructor
+     */
+    InfoPanel(Hive hive){
         timer = new Timer(100,this);
         timer.start();
         this.hive = hive;
@@ -89,7 +134,9 @@ public class Infopanel extends JPanel implements ActionListener {
             this.add(botNameInfoLabel);
         }
     }
-
+    /**
+     * method from ActionListener interface
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         amountOfNectarLabel.setText("Nektar w ulu: " + hive.storedNectar);

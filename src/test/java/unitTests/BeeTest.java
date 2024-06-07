@@ -1,3 +1,5 @@
+package unitTests;
+
 import org.example.Bee;
 import org.example.Flower;
 import org.example.Hive;
@@ -7,11 +9,21 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for Bee Class
+ */
 public class BeeTest {
-
+    /**
+     * Bee class
+     */
     Bee bee;
+    /**
+     * Flower class
+     */
     Flower flower;
-
+    /**
+     * Unit test for beeSpawnRandomizer method
+     */
     @Test
     public void beeSpawnRandomizerTest(){
         int testsAmount = 5;
@@ -27,7 +39,9 @@ public class BeeTest {
             System.out.println("Hive location " + Hive.x + " " + Hive.y + ", szerokosc " + Hive.size + " .Pszczola, x: " + bee.getxBeeSpawnLocation() + ", y: " + bee.getyBeeSpawnLocation());
         }
     }
-
+    /**
+     * Unit test for beeVelocityRandomizer method
+     */
     @Test
     public void beeVelocityRandomizerTest(){
         bee = new Bee();
@@ -36,20 +50,26 @@ public class BeeTest {
         assertTrue(bee.getyVelocity() >= -2 && bee.getyVelocity() <= 2, "Bee y velocty is not between -2 and 2");
 
     }
-
+    /**
+     * Unit test for getIsRandomized variable
+     */
     @Test
     public void getIsRandomizedTest(){
         bee = new Bee();
         assertFalse(bee.getbeeVelocityisRandomized(),"Velocity is randomized, but should not be");
     }
-
+    /**
+     * Unit test for getHasSelectedFlower method
+     */
     @Test
     public void getHasSelectedFlowerTest(){
         bee = new Bee();
         flower = new Flower();
         assertFalse(bee.getHasSelectedFlower(),"Bee has selected flower but should not");
     }
-
+    /**
+     * Unit test for x and y variables
+     */
     @Test
     public void getXAndYTest(){
         bee = new Bee();
@@ -66,12 +86,16 @@ public class BeeTest {
         }
 
     }
-
+    /**
+     * Unit test for getBeeSize method
+     */
     @Test
     public void getBeeSizeTest(){
         assertEquals(15, Bee.getBeeSize(), "Bee size is not equal 15");
     }
-
+    /**
+     * Unit test for getFlower, getNectar, giveNectarToHive methods
+     */
     @Test
     public void getFlowerAndGetNectarAndgiveNectarToHiveTest(){
         Hive hive = new Hive();

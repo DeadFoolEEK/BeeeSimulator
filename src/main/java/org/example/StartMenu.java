@@ -42,7 +42,7 @@ public class StartMenu extends JFrame implements ActionListener {
      */
     JButton readMeButton;
     /**
-     * Class constructor
+     * StartMenu Class constructor
      */
     StartMenu() {
 

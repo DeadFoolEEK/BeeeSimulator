@@ -1,3 +1,5 @@
+package unitTests;
+
 import org.example.Flower;
 import org.example.Panel;
 import org.junit.jupiter.api.Test;
@@ -6,10 +8,17 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit test class for Flower Class
+ */
 public class FlowerTest {
-
+    /**
+     * Flower class
+     */
     Flower flower;
-
+    /**
+     * Unit test for getX and getY variables
+     */
     @Test
     public void getXAndYTest(){
         int flowerAmount = 10;
@@ -26,7 +35,9 @@ public class FlowerTest {
         }
 
     }
-
+    /**
+     * Unit test for getAndIsOccupiedByBee method
+     */
     @Test
     public void getAndIsOccupiedByBeeTest(){
         flower = new Flower();
@@ -34,7 +45,9 @@ public class FlowerTest {
         flower.setIsOccupiedByBeeToTrue();
         assertTrue(flower.getIsOccupiedByBee(),"Flower is not occupied, but should not");
     }
-
+    /**
+     * Unit test for setNectarAmount and getNectarAmount methods
+     */
     @Test
     public void setAndGetNectarAmountTest(){
         flower = new Flower();
@@ -43,7 +56,9 @@ public class FlowerTest {
         flower.setNectarAmount(amount);
         assertEquals(100,flower.getNectarAmount(),"Set nectar amount is different than actual nectar amount");
     }
-
+    /**
+     * Unit test for getFlowerSize method
+     */
     @Test
     public void getFlowerSizeTest(){
         assertEquals(30, Flower.getFlowerSize(), "Flower size is not euqal 30, but should be");

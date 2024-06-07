@@ -22,30 +22,92 @@ public class EndOfSimulationFrame extends JFrame implements ActionListener {
      */
     ArrayList<String> simulationResults;
     /**
-     * EndOfSimulationFrame Class constructor
+     * Main JPanel which contains other JPanels
      */
     JPanel mainPanel;
+    /**
+     * JPanel which contains JButtons
+     */
     JPanel buttonsPanel;
+    /**
+     * JLabel with title "Podsumowanie" (eng. Summary)
+     */
     JLabel titleLabel;
+    /**
+     * JLabel with bee price
+     */
     JLabel beePriceLabel;
+    /**
+     * JPanel with simulations results (JLabels)
+     */
     JPanel simulationResultsPanel;
+    /**
+     * JLabel which shows how long simulation lasts (days)
+     */
     JLabel simulationDaysAmountInfo;
+    /**
+     * JLabel which shows how many bees are left at the end of simulation
+     */
     JLabel beesAmountInfo;
+    /**
+     * JLabel which shows nectar price
+     */
     JLabel nectarPriceInfo;
+    /**
+     * JLabel which shows how much user paid for bees at simulation beginning (bees at start * bee price [30] )
+     */
     JLabel beesAtBeginningCostInfo;
+    /**
+     * JLabel which shows money amount after selling bees
+     */
     JLabel beesAtTheEndEarningsInfo;
+    /**
+     * JLabel which shows money amount from sold left nectar
+     */
     JLabel moneyFromSoldNectar;
+    /**
+     * JLabel which shows how much money user did not spend during simulation
+     */
     JLabel moneyLeftInfo;
+    /**
+     * JLabel which shows final money collected from simulation
+     */
     JLabel moneyCollectedInfo;
+    /**
+     * Bees amount on simulation beginning, set by user in settings
+     */
     private final int startingBeesAmount;
+    /**
+     * Bees amount on simulation end
+     */
     private final int endBeesAmount;
+    /**
+     * Set price to sell bees
+     */
     private final int beePrice = 30;
+    /**
+     * Set price to sell left nectar
+     */
     private final double nectarPrice = 3.5;
+    /**
+     * Amount bees on beginning multiplied by bee price, calculated in computeFinalIncome method
+     */
     private int costsOfBuyingBeesAtBeginning;
+    /**
+     * Money from sold bees at simulation end, calculated in computeFinalIncome method
+     */
     private int moneyFromSellingBessAtTheEnd;
+    /**
+     * Money from left nectar, calculated in computeFinalIncome method
+     */
     private double moneyLeftFromNectar;
+    /**
+     * Stores final income calculated in computeFinalIncome method
+     */
     private double finalIncome;
-
+    /**
+     * EndOfSimulationFrame constructor
+     */
     EndOfSimulationFrame(ArrayList<String> simulationResults, int startingBeesAmount, int endBeesAmount){
 
         this.simulationResults = simulationResults;
@@ -163,7 +225,9 @@ public class EndOfSimulationFrame extends JFrame implements ActionListener {
 
         addToSimulationResults();
     }
-
+    /**
+     * Method which computes variables: costsOfBuyingBeesAtBeginning, moneyFromSellingBessAtTheEnd, moneyLeftFromNectar, finalIncome
+     */
     private void computeFinalIncome(){
         costsOfBuyingBeesAtBeginning = beePrice * startingBeesAmount;
         moneyFromSellingBessAtTheEnd = beePrice * endBeesAmount;
@@ -171,6 +235,9 @@ public class EndOfSimulationFrame extends JFrame implements ActionListener {
         finalIncome = Hive.money + moneyFromSellingBessAtTheEnd - costsOfBuyingBeesAtBeginning + moneyLeftFromNectar;
     }
 
+    /**
+     * Method which adds info to simulationResults array. This array is passed to SaveToFile class
+     */
     private void addToSimulationResults(){
         simulationResults.add("Ilosc pszczol na poczatku: " + startingBeesAmount);
         if(endBeesAmount > startingBeesAmount){

@@ -1,14 +1,26 @@
+package unitTests;
+
 import org.example.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Unit test class for Bot Class
+ */
 public class BotTest {
-
+    /**
+     * Bot class
+     */
     Bot bot;
+    /**
+     * Hive class
+     */
     Hive hive;
-
+    /**
+     * Unit test for getAmountOfBoughtBees method for bot Peter
+     */
     @Test
     public void getAmountOfBoughtBeesTest_BOTPETER(){
         double money = 100;
@@ -34,7 +46,9 @@ public class BotTest {
 
         System.out.println("Bot bought " + amountOfBoughtBees + " bess and spent " + moneySpentOnBees + " money. Left money was invested into flowers or saved");
     }
-
+    /**
+     * Unit test for getAmountOfBoughtFlowers method for bot Peter
+     */
     @Test
     public void getAmountOfBoughtFlowers_BOTPETER(){
         double money = 1000;
@@ -57,7 +71,9 @@ public class BotTest {
 
         System.out.println("Bot bought " + amountOfBoughtFlowers + " flowers and spent " + moneySpentOnFlowers + " money. Left money was invested into bees or saved");
     }
-
+    /**
+     * Unit test for bot actions for bot Peter
+     */
     @Test
     public void actionTest_BOTPETER(){
         double money = 1000;
@@ -82,7 +98,9 @@ public class BotTest {
 
         System.out.println("Bot bought " + amountOfBoughtFlowers + " flowers and " + amountOfBoughtBees + " bees. He paid " + (moneySpentOnFlowers + moneySpentOnBees));
     }
-
+    /**
+     * Unit test for getAmountOfBoughtBees method for bot Bruno
+     */
     @Test
     public void getAmountOfBoughtBeesTest_BOTBRUNO(){
         double money = 100;
@@ -108,7 +126,9 @@ public class BotTest {
 
         System.out.println("Bot bought " + amountOfBoughtBees + " bess and spent " + moneySpentOnBees + " money. Left money was invested into flowers or saved");
     }
-
+    /**
+     * Unit test for getAmountOfBoughtFlowers method for bot Bruno
+     */
     @Test
     public void getAmountOfBoughtFlowers_BOTBRUNO(){
         double money = 1000;
@@ -131,7 +151,9 @@ public class BotTest {
 
         System.out.println("Bot bought " + amountOfBoughtFlowers + " flowers and spent " + moneySpentOnFlowers + " money. Left money was invested into bees or saved");
     }
-
+    /**
+     * Unit test for bot actions for bot Bruno
+     */
     @Test
     public void actionTest_BOTBRUNO(){
         double money = 1000;
