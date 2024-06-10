@@ -4,7 +4,7 @@ Project for university
 
 PL
 Symulator Pszczół
-Projekt na uczelni
+Projekt na uczelnie
 
 Authors
 - [Piotr Pasoń](https://github.com/DeadFoolEEK)
