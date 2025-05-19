@@ -8,4 +8,4 @@ Projekt na uczelnie
 
 Authors
 - [Piotr Pasoń](https://github.com/DeadFoolEEK)
-- [Bruno Białas](https://github.com/Zehuwan)
+- [Bruno Białas](https://github.com/ZehuwanCodes)
